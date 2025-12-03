@@ -1,0 +1,2 @@
+The user folder in this directory goes into ~/.config/
+You're welcome! (you need it for nwg-dock-hyprland to work)
