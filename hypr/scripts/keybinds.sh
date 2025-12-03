@@ -1,39 +1,80 @@
-#!/bin/bash
-#  _              _     _           _ _                  
-# | | _____ _   _| |__ (_)_ __   __| (_)_ __   __ _ ___  
-# | |/ / _ \ | | | '_ \| | '_ \ / _` | | '_ \ / _` / __| 
-# |   <  __/ |_| | |_) | | | | | (_| | | | | | (_| \__ \ 
-# |_|\_\___|\__, |_.__/|_|_| |_|\__,_|_|_| |_|\__, |___/ 
-#           |___/                             |___/      
-# by Stephan Raabe (2024) 
-# ----------------------------------------------------- 
+#!/usr/bin/env bash
+# /* ---- 💫 https://github.com/JaKooLit 💫 ---- */
 
-config_file=~/.config/hypr/configs/keybinds.conf
-echo "Reading from: $config_file"
+# GDK BACKEND. Change to either wayland or x11 if having issues
+BACKEND=wayland
 
-keybinds=""
+# Check if rofi or yad is running and kill them if they are
+if pidof rofi > /dev/null; then
+  pkill rofi
+fi
 
-# Detect Start String
-while read -r line
-do
-    if [[ "$line" == "bind"* ]]; then
+if pidof yad > /dev/null; then
+  pkill yad
+fi
 
-        line="$(echo "$line" | sed 's/$mainMod/SUPER/g')"
-        line="$(echo "$line" | sed 's/bind = //g')"
-        line="$(echo "$line" | sed 's/bindm = //g')"
-
-        IFS='#' 
-        read -a strarr <<<"$line" 
-        kb_str=${strarr[0]}
-        cm_str=${strarr[1]}
-
-        IFS=',' 
-        read -a kbarr <<<"$kb_str" 
-
-        item="${kbarr[0]}  + ${kbarr[1]}"$'\r'"${cm_str:1}"
-        keybinds=$keybinds$item$'\n'
-    fi 
-done < "$config_file"
-
-sleep 0.2
-rofi -dmenu -i -markup -eh 2 -replace -p "Keybinds" <<< "$keybinds"
+# Launch yad with calculated width and height
+GDK_BACKEND=$BACKEND yad \
+    --center \
+    --title="Keybind Hints" \
+    --no-buttons \
+    --list \
+    --column=Key: \
+    --column=Description: \
+    --column=Command: \
+    --timeout-indicator=bottom \
+"ESC" "Close this app" "" \
+"SUPER" "Main Modifier (Windows Key)" "(SUPER KEY)" \
+"SUPER + Return" "Open Terminal" "(exec \$terminal)" \
+"SUPER + SHIFT + Return" "DropDown Terminal" "(dropterminal.sh)" \
+"SUPER + Q" "Close active window" "(killactive)" \
+"SUPER + SHIFT + Q" "Kill active process" "(KillActiveProcess.sh)" \
+"CTRL + ALT + Delete" "Exit Hyprland" "(hyprctl dispatch exit 0)" \
+"SUPER + E" "Open File Manager" "(\$fileManager)" \
+"SUPER + Space" "Toggle Floating" "(togglefloating)" \
+"SUPER + R" "Open Menu" "(\$menu)" \
+"SUPER + P" "Toggle Dwindle" "(pseudo)" \
+"SUPER + J" "Toggle Split" "(togglesplit)" \
+"SUPER + D" "Launch NWG Dock" "(nwg-dock-hyprland)" \
+"SUPER + B" "Open Browser" "(chromium)" \
+"SUPER + L" "Lock Screen" "(hyprlock.sh)" \
+"SUPER + SHIFT + F" "Fullscreen" "(fullscreen)" \
+"SUPER + SHIFT + S" "Screenshot" "(screenshot.sh)" \
+"SUPER + W" "Change Wallpaper" "(wppicker.sh)" \
+"SUPER + C" "Color Picker" "(hyprpicker -a)" \
+"SUPER + CTRL + B" "Waybar Styles" "(WaybarStyles.sh)" \
+"SUPER + ALT + B" "Waybar Layout" "(WaybarLayout.sh)" \
+"SUPER + H" "Hide Waybar" "(pkill -SIGUSR1 waybar)" \
+"SUPER + SHIFT + E" "Yazi File Manager" "(kitty yazi)" \
+"SUPER + K" "Show Keybinds" "(keybinds.sh)" \
+"SUPER + SHIFT + D" "Dropdown Terminal" "(dropterminal.sh)" \
+"SUPER + SHIFT + ." "Emoji Picker" "(rofi -show emoji)" \
+"SUPER + Arrow Left" "Move Focus Left" "(movefocus l)" \
+"SUPER + Arrow Right" "Move Focus Right" "(movefocus r)" \
+"SUPER + Arrow Up" "Move Focus Up" "(movefocus u)" \
+"SUPER + Arrow Down" "Move Focus Down" "(movefocus d)" \
+"SUPER + CTRL + Arrow Left" "Move Window Left" "(movewindow l)" \
+"SUPER + CTRL + Arrow Right" "Move Window Right" "(movewindow r)" \
+"SUPER + CTRL + Arrow Up" "Move Window Up" "(movewindow u)" \
+"SUPER + CTRL + Arrow Down" "Move Window Down" "(movewindow d)" \
+"SUPER + SHIFT + Arrow Left" "Resize Window Left" "(resizeactive -50 0)" \
+"SUPER + SHIFT + Arrow Right" "Resize Window Right" "(resizeactive 50 0)" \
+"SUPER + SHIFT + Arrow Up" "Resize Window Up" "(resizeactive 0 -50)" \
+"SUPER + SHIFT + Arrow Down" "Resize Window Down" "(resizeactive 0 50)" \
+"SUPER + 1-0" "Switch to Workspace 1-10" "(workspace #)" \
+"SUPER + SHIFT + 1-0" "Move Window to Workspace 1-10" "(movetoworkspace #)" \
+"SUPER + Mouse Down" "Next Workspace" "(workspace e+1)" \
+"SUPER + Mouse Up" "Previous Workspace" "(workspace e-1)" \
+"SUPER + LMB Drag" "Move Window" "(movewindow)" \
+"SUPER + RMB Drag" "Resize Window" "(resizewindow)" \
+"XF86AudioRaiseVolume" "Increase Volume" "(volume.sh --inc)" \
+"XF86AudioLowerVolume" "Decrease Volume" "(volume.sh --dec)" \
+"XF86AudioMute" "Mute/Unmute Volume" "(volume.sh --toggle)" \
+"XF86AudioMicMute" "Toggle Mic" "(wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle)" \
+"XF86MonBrightnessUp" "Increase Brightness" "(brightness.sh --inc)" \
+"XF86MonBrightnessDown" "Decrease Brightness" "(brightness.sh --dec)" \
+"XF86AudioNext" "Next Track" "(playerctl next)" \
+"XF86AudioPause" "Play/Pause" "(playerctl play-pause)" \
+"XF86AudioPlay" "Play/Pause" "(playerctl play-pause)" \
+"XF86AudioPrev" "Previous Track" "(playerctl previous)" \
+"" "" "" \
