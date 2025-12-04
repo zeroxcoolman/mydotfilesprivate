@@ -2,10 +2,11 @@
 @import "colors.rasi"
 
 configuration {
-	modi: "window,run,drun";
+	modi: "window,run,drun,emoji";
 	display-drun: "Applications";
 	display-window: "Windows";
 	display-run: "Run";
+	display-emoji: "Emoji";
 	drun-display-format: "{icon} {name}";
 	font: "JetBrainsMono Nerd Font 10";
 	show-icons: true;
