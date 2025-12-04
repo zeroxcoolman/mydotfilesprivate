@@ -2,8 +2,9 @@
 
 file=~/Pictures/screenshots/$(date +%Y-%m-%d_%H-%M-%S).png
 
-# Take screenshot once and save it
-grim -g "$(slurp)" "$file"
+# Take screenshot of selected region and send to swappy
+grim -g "$(slurp)" - | swappy -f - -o "$file"
 
-# Copy that same file to clipboard
+# Copy final (edited) screenshot to clipboard
 wl-copy < "$file"
+
