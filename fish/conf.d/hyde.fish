@@ -74,7 +74,7 @@ set -gx PARALLEL_HOME "$XDG_CONFIG_HOME/parallel"
 end
 
 if test -z "$HYPRLAND_CONFIG"
-set -gx HYPRLAND_CONFIG "$XDG_DATA_HOME/hypr/hyprland.conf"
+set -gx HYPRLAND_CONFIG "$HOME/.config/hypr/hyprland.conf"
 end
 
 set -gx PATH $HOME/.local/bin:$PATH
