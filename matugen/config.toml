@@ -46,3 +46,4 @@ output_path = '~/.config/vesktop/themes/matugen.css'
 [templates.nwg-dock-hyprland]
 input_path = '~/.config/matugen/templates/nwg-dock-colors.css'
 output_path = '~/.config/nwg-dock-hyprland/colors.css'
+post_hook = '$HOME/.config/hypr/scripts/dockrestart.sh'
