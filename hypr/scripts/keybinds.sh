@@ -28,7 +28,7 @@ GDK_BACKEND=$BACKEND yad \
 "SUPER + Return" "Open Terminal" "(exec \$terminal)" \
 "SUPER + SHIFT + Return" "DropDown Terminal" "(dropterminal.sh)" \
 "SUPER + Q" "Close active window" "(killactive)" \
-"SUPER + SHIFT + Q" "Kill active process" "(KillActiveProcess.sh)" \
+"SUPER + SHIFT + Q" "Open clipboard manager (cliphist)" "(clipboard.sh)" \
 "CTRL + ALT + Delete" "Exit Hyprland" "(hyprctl dispatch exit 0)" \
 "SUPER + E" "Open File Manager" "(\$fileManager)" \
 "SUPER + Space" "Toggle Floating" "(togglefloating)" \

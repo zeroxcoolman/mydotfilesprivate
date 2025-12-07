@@ -1,17 +1,26 @@
- cava
- fastfetch
- fish
- hypr
- kitty
- matugen (cargo)
- nwg-dock-hyprland
- rofi
- satty
- starship (installer)
- swaync
- waybar
- wlogout
- brightnessctl
- swww
- cargo
- ttf-jetbrains-mono-nerd
+cava
+fastfetch
+fish
+hypr
+kitty
+matugen (cargo)
+nwg-dock-hyprland
+rofi
+satty
+starship (installer)
+swaync
+waybar
+wlogout
+brightnessctl
+swww
+cargo
+ttf-jetbrains-mono-nerd
+xdotool
+wtype
+hyprlock
+hypridle
+wf-recorder
+wl-clipboard
+pavucontrol
+pamixer
+cliphist
