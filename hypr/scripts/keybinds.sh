@@ -63,8 +63,9 @@ GDK_BACKEND=$BACKEND yad \
 "SUPER + SHIFT + Arrow Down" "Resize Window Down" "(resizeactive 0 50)" \
 "SUPER + 1-0" "Switch to Workspace 1-10" "(workspace #)" \
 "SUPER + SHIFT + 1-0" "Move Window to Workspace 1-10" "(movetoworkspace #)" \
-"SUPER + Mouse Down" "Next Workspace" "(workspace e+1)" \
-"SUPER + Mouse Up" "Previous Workspace" "(workspace e-1)" \
+"SUPER + Mouse Down" "Zoom (UP)" "(zoom.sh decrease STEP)" \
+"SUPER + Mouse Up" "Zoom (DOWN)" "(zoom.sh increase STEP)" \
+"SUPER + ALT  + 0" "Zoom (RESET)" "(zoom.sh reset)" \
 "SUPER + LMB Drag" "Move Window" "(movewindow)" \
 "SUPER + RMB Drag" "Resize Window" "(resizewindow)" \
 "XF86AudioRaiseVolume" "Increase Volume" "(volume.sh --inc)" \
