@@ -361,7 +361,6 @@ if terminal_exists; then
 
       # Small delay then move to special workspace and unpin
       sleep 0.1
-      hyprctl dispatch pin "address:$TERMINAL_ADDR" # Unpin (toggle)
       hyprctl dispatch movetoworkspacesilent "$SPECIAL_WS,address:$TERMINAL_ADDR"
     else
       debug_echo "Could not get window geometry, moving to scratchpad without animation"
