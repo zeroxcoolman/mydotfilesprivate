@@ -1,187 +1,23 @@
-@theme "/dev/null"
-@import "colors.rasi"
+/* ---- 💫 https://github.com/JaKooLit 💫 ---- */
+/* Ja KooLit - Default 
 
-configuration {
-	modi: "window,run,drun,emoji";
-	display-drun: "Applications";
-	display-window: "Windows";
-	display-run: "Run";
-	display-emoji: "Emoji";
-	drun-display-format: "{icon} {name}";
-	font: "JetBrainsMono Nerd Font 10";
-	show-icons: true;
-	icon-theme: "Colloid";
-}
+* All main themes or configs are located in ~/.config/rofi/themes/
+* If you want to edit the config, that is where you should edit NOT here 
 
-window {
-    /* properties for window widget */
-    transparency:                "real";
-    location:                    center;
-    anchor:                      center;
-    fullscreen:                  false;
-    width:                       1000px;
-    x-offset:                    0px;
-    y-offset:                    0px;
+* To load a new theme, manually edit the file path below or choose desired theme via rofi theme selector (choose via app menu)
 
-    /* properties for all widgets */
-    enabled:                     true;
-    border:			 2px solid;
-    border-color:		 @secondary-container;
-    border-radius:               15px;
-    cursor:                      "default";
-    background-color:            @on-primary-fixed;
-}
+* Alternative way to Load (preferred) own cooked by Ja 
+* SUPER CTRL R - Choose style & SUPER CTRL SHIFT R 
 
-mainbox {
-    enabled:                     true;
-    spacing:                     0px;
-    background-color:            transparent;
-    orientation:                 horizontal;
-    children:                    [ "imagebox", "listbox" ];
-}
+* TIPS 
+* If you have edited a config, rename it with a unique name. During update, the contents of 
+* ~/.config/rofi/themes/ will be replaced. */
 
-imagebox {
-    padding:                     20px;
-    background-color:            transparent;
-    background-image:            url("~/.config/hypr/current_wallpaper", height);
-    orientation:                 vertical;
-    children:                    [ "inputbar", "dummy", "mode-switcher" ];
-}
+/* ---- Global Configuration Fonts ---- */
+@import "~/.config/rofi/0-shared-fonts.rasi"
 
-listbox {
-    spacing:                     20px;
-    padding:                     20px;
-    background-color:            transparent;
-    orientation:                 vertical;
-    children:                    [ "message", "listview" ];
-}
+/* note: Main themes in ~/.config/rofi/themes */
+/* You can manually change here or you can use rofi theme selector SUPER SHIFT E */
 
-dummy {
-    background-color:            transparent;
-}
 
-inputbar {
-    enabled:                     true;
-    spacing:                     10px;
-    padding:                     15px;
-    border-radius:               10px;
-    background-color:		 @on-primary;
-    text-color:			 @on-surface;
-    children:                    [ "textbox-prompt-colon", "entry" ];
-}
-textbox-prompt-colon {
-    enabled:                     true;
-    expand:                      false;
-    str:                         "  ";
-    background-color:            inherit;
-    text-color:                  inherit;
-}
-entry {
-    enabled:                     true;
-    background-color:            inherit;
-    text-color:                  inherit;
-    cursor:                      text;
-    placeholder:                 "Search";
-    placeholder-color:           inherit;
-}
-
-mode-switcher{
-    enabled:                     true;
-    spacing:                     20px;
-    background-color:            transparent;
-    text-color:                  @primary-fixed;
-}
-button {
-    padding:                     15px;
-    border-radius:               10px;
-    background-color:            @on-primary;
-    text-color:                  inherit;
-    cursor:                      pointer;
-}
-button selected {
-    background-color:            @primary;
-    text-color:                  @on-secondary;
-}
-
-listview {
-    enabled:                     true;
-    columns:                     1;
-    lines:                       8;
-    cycle:                       true;
-    dynamic:                     true;
-    scrollbar:                   false;
-    layout:                      vertical;
-    reverse:                     false;
-    fixed-height:                true;
-    fixed-columns:               true;
-    
-    spacing:                     10px;
-    background-color:            transparent;
-    text-color:                  @on-surface;
-    cursor:                      "default";
-}
-
-element {
-    enabled:                     true;
-    spacing:                     15px;
-    padding:                     8px;
-    border-radius:               10px;
-    background-color:            transparent;
-    text-color:                  @on-surface;
-    cursor:                      pointer;
-}
-element normal.normal {
-    background-color:            inherit;
-    text-color:                  inherit;
-}
-element normal.urgent {
-    background-color:            @error;
-    text-color:                  @on-surface;
-}
-element normal.active {
-    background-color:            @primary;
-    text-color:                  @on-surface;
-}
-element selected.normal {
-    background-color:            @primary;
-    text-color:                  @on-secondary;
-}
-element selected.urgent {
-    background-color:            @error;
-    text-color:                  @on-secondary;
-}
-element selected.active {
-    background-color:            @error;
-    text-color:                  @on-secondary;
-}
-element-icon {
-    background-color:            transparent;
-    text-color:                  inherit;
-    size:                        32px;
-    cursor:                      inherit;
-}
-element-text {
-    background-color:            transparent;
-    text-color:                  inherit;
-    cursor:                      inherit;
-    vertical-align:              0.5;
-    horizontal-align:            0.0;
-}
-
-message {
-    background-color:            transparent;
-}
-textbox {
-    padding:                     15px;
-    border-radius:               10px;
-    background-color:            @on-primary;
-    text-color:                  @on-surface;
-    vertical-align:              0.5;
-    horizontal-align:            0.0;
-}
-error-message {
-    padding:                     15px;
-    border-radius:               20px;
-    background-color:            @on-primary;
-    text-color:                  @on-surface;
-}
+@theme "~/.config/rofi/themes/style1.rasi"
