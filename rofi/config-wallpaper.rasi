@@ -9,7 +9,7 @@ configuration {
 }
 
 window {
-  width: 75%;
+  width: inherit;
   height: inherit;
 }
 
