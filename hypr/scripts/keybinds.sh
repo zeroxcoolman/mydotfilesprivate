@@ -47,6 +47,7 @@ GDK_BACKEND=$BACKEND yad \
 "SUPER + H" "Hide Waybar" "(pkill -SIGUSR1 waybar)" \
 "SUPER + SHIFT + E" "Yazi File Manager" "(kitty yazi)" \
 "SUPER + K" "Show Keybinds" "(keybinds.sh)" \
+"SUPER + ALT + S" "Rofi Calculator" "(rofi -show calc -modi calc -no-show-match -no-sort)" \
 "SUPER + SHIFT + D" "Dropdown Terminal" "(dropterminal.sh)" \
 "SUPER + SHIFT + ." "Emoji Picker" "(rofi -show emoji)" \
 "SUPER + Arrow Left" "Move Focus Left" "(movefocus l)" \

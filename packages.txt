@@ -27,3 +27,4 @@ cliphist
 exa
 eza
 chaotic-aur (optional but nice)
+https://github.com/svenstaro/rofi-calc (meson to compile)
