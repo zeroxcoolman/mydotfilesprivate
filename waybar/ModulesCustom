@@ -56,8 +56,8 @@
 
 "custom/hint": {
 	"format": "󰺁 HINT!",
-	"on-click": "$HOME/.config/hypr/scripts/KeyHints.sh",
-	"on-click-right": "$HOME/.config/hypr/scripts/KeyBinds.sh",
+	"on-click": "$HOME/.config/hypr/scripts/keyhints.sh",
+	"on-click-right": "$HOME/.config/hypr/scripts/keybinds.sh",
 	"tooltip": true,
 	"tooltip-format": "Left Click: Quick Tips\nRight Click: Keybinds",
 },
@@ -92,14 +92,14 @@
 	"format": "󰔎 ",
 	"on-click": "$HOME/.config/hypr/scripts/DarkLight.sh",
 	"on-click-right": "$HOME/.config/hypr/scripts/WaybarStyles.sh",
-	"on-click-middle": "$HOME/.config/hypr/UserScripts/WallpaperSelect.sh",
+	"on-click-middle": "$HOME/.config/hypr/UserScripts/wppicker.sh",
 	"tooltip": true,
 	"tooltip-format": "Left Click: Switch Dark-Light Themes\nMiddle Click: Wallpaper Menu\nRight Click: Waybar Styles Menu",
 },
 
 "custom/lock": {
 	"format": "󰌾",
-	"on-click": "$HOME/.config/hypr/scripts/LockScreen.sh",
+	"on-click": "$HOME/.config/hypr/scripts/hyprlock.sh",
 	"tooltip": true,
 	"tooltip-format": "󰷛 Screen Lock",
 },
@@ -107,7 +107,7 @@
 "custom/menu": {
 	"format": "  ",
 	"on-click": "pkill rofi || rofi -show drun -modi run,drun,filebrowser,window",
-	"on-click-middle": "$HOME/.config/hypr/UserScripts/WallpaperSelect.sh",
+	"on-click-middle": "$HOME/.config/hypr/scripts/wppicker.sh",
 	"on-click-right": "$HOME/.config/hypr/scripts/WaybarLayout.sh",
 	"tooltip": true,
 	"tooltip-format": "Left Click: Rofi Menu\nMiddle Click: Wallpaper Menu\nRight Click: Waybar Layout Menu",
@@ -181,11 +181,11 @@
     "format": "  {}",
     "escape": true,
     "return-type": "json",
-    "exec": "~/.config/user/scripts/updates.sh",
+    "exec": "~/.config/hypr/scripts/update.sh",
     "interval": 1800,
     "signal": 1,
     "hide-empty-text": true,
-    "on-click": "~/.config/user/settings/installupdates.sh"
+    "on-click": "~/.config/ehsan/settings/installupdates.sh"
 },
 // Separators
 "custom/separator#dot": {
@@ -266,5 +266,5 @@
 "custom/arrow10": {
 	"format": "",
 	"tooltip": false
-}
+},
 }

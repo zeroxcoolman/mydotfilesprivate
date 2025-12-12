@@ -2,7 +2,7 @@
 
 
 * {
-    font-family: "JetBrainsMono Nerd Font Propo";
+    font-family: "JetBrainsMonoNL Nerd Font Propo";
     font-weight: bold;
     min-height: 0;
     /* set font-size to 100% if font scaling is set to 1.00 using nwg-look */
@@ -141,11 +141,12 @@ margin: 0 0 0 5px;
 #window,
 #wireplumber,
 #workspaces,
+#custom-updates,
 #custom-backlight,
 #custom-browser,
 #custom-cava_mviz,
 #custom-cycle_wall,
-#custom-dot_update,
+#custom-updates,
 #custom-file_manager,
 #custom-keybinds,
 #custom-keyboard,

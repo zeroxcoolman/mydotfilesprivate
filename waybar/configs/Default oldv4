@@ -1,15 +1,15 @@
 /* ---- 💫 https://github.com/JaKooLit 💫 ---- */
 
-/* My Mostly Used waybar config incase you wonder :) */
+// ### DEFAULT  - Top (old v4) ### //
 {
 "include": [
   "$HOME/.config/waybar/Modules",
   "$HOME/.config/waybar/ModulesWorkspaces",
   "$HOME/.config/waybar/ModulesCustom",
   "$HOME/.config/waybar/ModulesGroups",
-  "$HOME/.config/waybar/UserModules"
+  "$HOME/.config/waybar/UserModules",
   ],
-"layer": "bottom",
+"layer": "top",
 //"mode": "dock",
 "exclusive": true,
 "passthrough": false,
@@ -22,25 +22,33 @@
 "margin-right": 8,
 
 "modules-left": [
-	//"idle_inhibitor",
-	//"custom/separator#blank",
-	"clock",
-	"custom/separator#blank",
-	"tray",
+	"group/app_drawer",
+	"custom/separator#dot-line",
+	"group/mobo_drawer",
+	"custom/separator#line",
+	"custom/weather",
 	],
 
 "modules-center": [
+	"group/notify",
+	"custom/cava_mviz",
+	"custom/separator#dot-line",
+	"clock",
+	"custom/separator#line",
 	"hyprland/workspaces#kanji",
-	],
+	"custom/separator#dot-line",
+	"idle_inhibitor",	
+	"custom/hint",	
+	], 
 
 "modules-right": [
-        //"mpris",
-        //"custom/separator#dot-line",
-        "group/notify",	
-	"battery",
-	"custom/separator#blank",  
+	"network#speed",
+	"group/connections",
+	"custom/separator#line",
+	"tray",
+	"mpris", 
 	"group/audio",
-	"custom/separator#blank",
-	"custom/power",
+	"custom/separator#dot-line",
+	"group/status",
 	],
 }
