@@ -24,3 +24,6 @@ wl-clipboard
 pavucontrol
 pamixer
 cliphist
+exa
+eza
+chaotic-aur (optional but nice)
