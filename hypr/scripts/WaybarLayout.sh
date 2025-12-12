@@ -8,7 +8,7 @@ IFS=$'\n\t'
 waybar_layouts="$HOME/.config/waybar/configs"
 waybar_config="$HOME/.config/waybar/config"
 SCRIPTSDIR="$HOME/.config/hypr/scripts"
-rofi_config="$HOME/.config/rofi/config.rasi"
+rofi_config="$HOME/.config/rofi/config-waybar-layout.rasi"
 msg=' Choose Waybar Layout '
 
 # Function to display menu options
