@@ -169,6 +169,8 @@
      ninja
      gcc
      pkg-config
+     cmake
+     glib
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
