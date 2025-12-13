@@ -58,6 +58,9 @@
   
   # starship shell
   programs.starship.enable = true;
+ 
+  # flatpak
+  services.flatpak.enable = true;
 
   # NVIDIA DRIVERS HYBRID
   
@@ -113,7 +116,8 @@
      ];
   };
 
-  programs.firefox.enable = true;
+  # programs.firefox.enable = true;
+  # programs.chromium.enable = true;   
 
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
@@ -151,6 +155,9 @@
      slurp
      grim
      networkmanagerapplet
+     chromium
+     yad
+     discord
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
