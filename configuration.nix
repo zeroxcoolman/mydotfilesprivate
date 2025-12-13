@@ -107,6 +107,9 @@
      pulse.enable = true;
   };
 
+  # gnome-keyring
+  services.gnome.gnome-keyring.enable = true;  
+
   # Enable touchpad support (enabled default in most desktopManager).
   # services.libinput.enable = true;
 
@@ -161,6 +164,7 @@
      chromium
      yad
      discord
+     gnome-keyring
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
