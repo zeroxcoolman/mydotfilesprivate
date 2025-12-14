@@ -28,7 +28,7 @@ configuration {
     active:                      @secondary;
     urgent:                      @error;
     
-  
+    font:                        "JetBrainsMono Nerd Font Bold 13";  
     text-selected:               @on-primary;
     text-color:                  @foreground;
     border-color:                @primary;
