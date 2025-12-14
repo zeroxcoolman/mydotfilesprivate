@@ -114,7 +114,7 @@
   # services.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.usern = {
+  users.users.ehsab = {
      isNormalUser = true;
      extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
      packages = with pkgs; [
@@ -169,8 +169,13 @@
      ninja
      gcc
      pkg-config
-     cmake
      glib
+     cmake
+     pokemon-colorscripts
+     ani-cli
+     imagemagick
+     feh
+     libnotify
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
