@@ -1,0 +1,244 @@
+/* ---- 💫 Custom Hybrid Style (4 + 6) 💫 ---- */
+/* Combining Style-4's layout with Style-6's wallpaper preview */
+
+/* ---- Configuration ---- */
+configuration {
+    modi:                       "drun,run,filebrowser";
+    show-icons:                 true;
+    display-drun:               "  apps";
+    display-run:                "  term";
+    display-filebrowser:        "  files";
+    display-window:             "  window";
+    drun-display-format:        "{name}";
+    window-format:              "{w} · {c} · {t}";
+    hover-select:               true;
+    me-select-entry:            "MouseSecondary";
+    me-accept-entry:            "MousePrimary";
+}
+
+/* ---- Load matugen colors ---- */
+@import "colors.rasi"
+
+/* ---- Global Properties ---- */
+* {
+    background:                  @surface;
+    background-alt:              @surface-container;
+    foreground:                  @on-surface;
+    selected:                    @primary;
+    active:                      @secondary;
+    urgent:                      @error;
+    
+  
+    text-selected:               @on-primary;
+    text-color:                  @foreground;
+    border-color:                @primary;
+}
+
+/* ---- Window ---- */
+window {
+    enabled:                    true;
+    fullscreen:                 false;
+    transparency:               "real";
+    cursor:                     "default";
+    spacing:                    0px;
+    border:                     2px;
+    border-radius:              30px;
+    location:                   center;
+    anchor:                     center;
+    width:                      50%;
+    background-color:           @background;
+}
+
+/* ---- Main Box ---- */
+mainbox {
+    enabled:                     true;
+    orientation:                 vertical;
+    children:                    [ "inputbar", "custombox" ];
+    background-color:            transparent;
+    padding:                     10px;
+}
+
+/* ---- Inputbar with Wallpaper Preview ---- */
+inputbar {
+    enabled:                     true;
+    padding:                     10px 10px 100px 10px;
+    margin:                      10px;
+    background-color:            transparent;
+    border-radius:               25px;
+    orientation:                 horizontal;
+    children:                    ["entry"];
+    background-image:            url("~/.config/hypr/current_wallpaper", width);
+}
+
+/* ---- Entry input ---- */
+entry {
+    enabled:                     true;
+    expand:                      false;
+    width:                       300px;
+    padding:                     10px;
+    border-radius:               12px;
+    background-color:            @background;
+    text-color:                  @foreground;
+    cursor:                      text;
+    placeholder:                 "  Search...";
+    placeholder-color:           inherit;
+}
+
+/* ---- Custom Box (Mode Switcher + Listview) ---- */
+custombox {
+    spacing:                     10px;
+    padding:                     10px;
+    background-color:            transparent;
+    orientation:                 horizontal;
+    children:                    [ "mode-switcher", "listview" ];
+}
+
+/* ---- Mode Switcher (Vertical, Left Side) ---- */
+mode-switcher {
+    enabled:                     true;
+    expand:                      false;
+    orientation:                 vertical;
+    spacing:                     10px;
+    background-color:            transparent;
+}
+
+button {
+    padding:                     15px 20px;
+    border-radius:               12px;
+    background-color:            @background-alt;
+    text-color:                  @foreground;
+    cursor:                      pointer;
+    vertical-align:              0.5;
+    horizontal-align:            0.5;
+}
+
+button selected {
+    background-color:            @selected;
+    text-color:                  @text-selected;
+    border:                      2px solid;
+    border-color:                @border-color;
+}
+
+/* ---- Listview ---- */
+listview {
+    enabled:                     true;
+    columns:                     1;
+    lines:                       6;
+    cycle:                       true;
+    dynamic:                     true;
+    scrollbar:                   false;
+    layout:                      vertical;
+    reverse:                     false;
+    fixed-height:                true;
+    fixed-columns:               true;
+    spacing:                     5px;
+    padding:                     10px;
+    border:                      2px;
+    border-radius:               12px;
+    border-color:                @border-color;
+    background-color:            transparent;
+}
+
+/* ---- Scrollbar ---- */
+scrollbar {
+    border:                      0px;
+    border-radius:               10px;
+    background-color:            transparent;
+    handle-color:                @active;
+    handle-width:                2px;
+    padding:                     0;
+}
+
+/* ---- Elements ---- */
+element {
+    enabled:                     true;
+    spacing:                     10px;
+    padding:                     10px;
+    border-radius:               8px;
+    background-color:            transparent;
+    cursor:                      pointer;
+}
+
+element normal.normal {
+    background-color:            transparent;
+    text-color:                  @foreground;
+}
+
+element normal.urgent {
+    background-color:            @urgent;
+    text-color:                  @on-error;
+}
+
+element normal.active {
+    background-color:            transparent;
+    text-color:                  @active;
+}
+
+element-text selected,
+element selected.normal {
+    background-color:            @selected;
+    text-color:                  @text-selected;
+}
+
+element selected.urgent {
+    background-color:            @urgent;
+    text-color:                  @on-error;
+}
+
+element selected.active {
+    background-color:            @active;
+    text-color:                  @on-secondary;
+}
+
+element alternate.normal {
+    background-color:            transparent;
+    text-color:                  inherit;
+}
+
+element alternate.urgent {
+    background-color:            transparent;
+    text-color:                  inherit;
+}
+
+element alternate.active {
+    background-color:            transparent;
+    text-color:                  inherit;
+}
+
+element-icon {
+    background-color:            transparent;
+    text-color:                  inherit;
+    size:                        32px;
+    cursor:                      inherit;
+}
+
+element-text {
+    background-color:            transparent;
+    text-color:                  inherit;
+    cursor:                      inherit;
+    vertical-align:              0.5;
+    horizontal-align:            0.0;
+}
+
+/* ---- Message ---- */
+message {
+    background-color:            transparent;
+    border:                      0px;
+}
+
+textbox {
+    margin:                      10px;
+    padding:                     12px;
+    border-radius:               10px;
+    background-color:            @active;
+    text-color:                  @on-secondary;
+    vertical-align:              0.5;
+    horizontal-align:            0.5;
+}
+
+error-message {
+    padding:                     12px;
+    border-radius:               20px;
+    background-color:            @background;
+    text-color:                  @foreground;
+}
