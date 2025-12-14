@@ -1,30 +1,48 @@
-cava
-fastfetch
-fish
-hypr
-kitty
-matugen (cargo)
-nwg-dock-hyprland
-rofi
-satty
-starship (installer)
-swaync
-waybar
-wlogout
-brightnessctl
-swww
-cargo
-ttf-jetbrains-mono-nerd
-xdotool
-wtype
-hyprlock
-hypridle
-wf-recorder
-wl-clipboard
-pavucontrol
-pamixer
-cliphist
-exa
-eza
-chaotic-aur (optional but nice)
-https://github.com/svenstaro/rofi-calc (meson to compile)
+     vim 
+     wget
+     kitty
+     git
+     neovim
+     mesa-demos
+     cava
+     fastfetch
+     fish
+     cargo
+     nwg-dock-hyprland
+     rofi
+     satty
+     swaynotificationcenter
+     waybar
+     brightnessctl
+     swww
+     nerd-fonts.jetbrains-mono
+     xdotool
+     wtype
+     wf-recorder
+     wl-clipboard
+     pavucontrol
+     pamixer
+     cliphist
+     eza
+     wlogout
+     matugen
+     jq
+     starship
+     slurp
+     grim
+     networkmanagerapplet
+     chromium
+     yad
+     discord
+     gnome-keyring
+     meson
+     ninja
+     gcc
+     pkg-config
+     glib
+     cmake
+     pokemon-colorscripts
+     imagemagick
+     feh
+     libnotify
+     https://github.com/svenstaro/rofi-calc (meson to compile)
