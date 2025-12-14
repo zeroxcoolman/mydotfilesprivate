@@ -1,19 +1,17 @@
 /* ---- 💫 https://github.com/JaKooLit 💫 ---- */
-/* Wallpaper Effects */
+/* Main Config (Waybar Layout) */
 
 @import "~/.config/rofi/config.rasi" 
-
 
 /* ---- Mainbox ---- */
 mainbox {
   children:
-    [ "inputbar", "listview"];
+    [ "inputbar", "message", "listview"];
 }
 
-/* ---- Entry ---- */ 
-entry {
-  width: 32%;
-  placeholder: " 🏙️ Search / Choose desired wallpaper effect";
+/* ---- Configuration ---- */
+configuration {
+  modi: "drun";
 }
 
 /* ---- Window ---- */
@@ -22,29 +20,29 @@ window {
   height: inherit;
 }
 
+/* ---- Entry ---- */ 
+entry {
+  expand: true;
+  placeholder: " 🏙️ Search / Choose desired wallpaper effect";
+}
+
 /* ---- Listview ---- */
 listview {
   columns: 2;
   lines: 7;
   fixed-height: false;
+  margin: 10px;
   scrollbar: true;
   spacing: 6px;
   cycle: true;
 }
 
-/* ---- Inputbar ---- */
-inputbar {
-  background-image: url("~/.config/hypr/wallpaper_effects/wallpaper_modified", width);
-}
-
-/* ---- Element ---- */
+/* ---- Elements ---- */
 element-icon {
   size: 0%;
 }
-
 element-text {
   horizontal-align: 0.0;
-  vertical-align: 0.0;
   margin: 0px;
   padding: 0px;
 }
