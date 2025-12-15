@@ -1,0 +1,91 @@
+/* @import "$HOME/.config/colors/colors.css" */
+@import "../waybar/colors.css";
+
+* {
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 13px;
+    font-weight: bold;
+    background-color: transparent;
+    border-radius: 5px;
+    min-height: 0;
+}
+
+window,
+tooltip {
+    background-color: @background;
+}
+
+#waybar {
+    background: alpha(@background, 0.6);
+    border-radius: 0;
+}
+
+#workspaces {
+    margin: 1px 0;
+}
+
+#workspaces button {
+    color: @on_surface;
+    border: none;
+    padding: 0 5px;
+}
+#workspaces button:hover {
+    color: @primary;
+    transition: none;
+    border-bottom: 1px solid @pink;
+    padding: 0 8px;
+}
+
+#workspaces button.active {
+    color: @primary;
+    border: 2px solid @pink;
+    padding: 0 8px;
+    margin: 0 2px;
+}
+
+#workspaces button.urgent {
+    background-color: @error;
+    padding: 0 8px;
+}
+
+#custom-power,
+#tray,
+#network,
+#battery,
+#pulseaudio,
+#clock {
+    color: @on_surface;
+    margin: 1px 0;
+    padding: 0 10px;
+}
+
+#custom-power:hover,
+#bluetooth:hover,
+#network:hover,
+#battery:hover,
+#pulseaudio:hover,
+#clock:hover {
+    background-color: alpha(@select, 0.6);
+}
+
+#network {
+    color: @secondary;
+}
+
+#battery {
+    color: @tertiary_fixed_dim;
+}
+
+#pulseaudio {
+    color: @secondary_fixed_dim;
+}
+
+#clock {
+    margin-right: 10px;
+    color: @tertiary;
+}
+
+#custom-power {
+    margin-left: 10px;
+    padding: 0px 10px 0 15px;
+}
