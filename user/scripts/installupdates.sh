@@ -45,8 +45,8 @@ sleep 1
 clear
 figlet -f smslant "Updates"
 echo
-primarycolor=$(cat ~/.config/ehsan/colors/primary)
-onsurfacecolor=$(cat ~/.config/ehsan/colors/onsurface)
+primarycolor=$(cat ~/.config/user/colors/primary)
+onsurfacecolor=$(cat ~/.config/user/colors/onsurface)
 if gum confirm --selected.background=$primarycolor --prompt.foreground=$onsurfacecolor "DO YOU WANT TO START THE UPDATE NOW?"; then
     echo
     echo ":: Update started..."
