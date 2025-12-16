@@ -185,7 +185,7 @@
     "interval": 1800,
     "signal": 1,
     "hide-empty-text": true,
-    "on-click": "~/.config/ehsan/settings/installupdates.sh"
+    "on-click": "~/.config/user/settings/installupdates.sh"
 },
 // Separators
 "custom/separator#dot": {
