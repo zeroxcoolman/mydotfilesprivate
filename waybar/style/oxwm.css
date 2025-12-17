@@ -1,0 +1,87 @@
+@import "colors.css";
+
+* {
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 14px;        /* Back to 14px */
+    font-weight: bold;
+    min-height: 0;
+    border: none;
+}
+
+window#waybar {
+    background-color: @surface;
+    color: @on_surface;
+    border: none;
+    padding: 0;
+}
+
+/* Workspaces - Plain text, no boxes */
+#workspaces {
+    margin: 6px 5px;        /* Back to 6px */
+    padding: 0;
+    background: transparent;
+}
+
+#workspaces button {
+    border-radius: 0px;
+    min-width: 0;
+    padding: 0 10px;        /* Back to 10px */
+    margin: 0;
+    background: transparent;
+    color: @on_surface_variant;
+    border: none;
+    border-bottom: 3px solid transparent;
+}
+
+#workspaces button.active {
+    background: transparent;
+    color: @primary;
+    border-bottom: 3px solid @primary;
+}
+
+#workspaces button:hover {
+    background: transparent;
+    color: @on_surface;
+}
+
+/* Separators */
+#custom-separator {
+    color: @outline_variant;
+    padding: 0 5px;
+    margin: 6px 0;
+    background: transparent;
+}
+
+/* Right side modules */
+#network,
+#memory,
+#clock {
+    padding: 0 10px;        /* Back to 10px */
+    margin: 6px 0;
+    background: transparent;
+    border-bottom: 3px solid transparent;
+}
+
+#network {
+    color: @tertiary;
+}
+
+#memory {
+    color: @secondary;
+}
+
+#clock {
+    color: @primary;
+}
+
+/* Tooltip */
+tooltip {
+    background-color: @surface_container;
+    border: 1px solid @outline;
+    border-radius: 0px;
+}
+
+tooltip label {
+    color: @on_surface;
+    padding: 5px;
+}
