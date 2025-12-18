@@ -182,7 +182,7 @@ oxwm.key.bind({ modkey, "Shift" }, "S", oxwm.spawn({ "sh", "-c", "maim -s | xcli
 oxwm.key.bind({ modkey }, "Q", oxwm.client.kill())
 
 -- screen lock
-oxwm.key.bind({ modkey }, "L", oxwm.spawn({ "sh", "-c", "betterlockscreen -l"}))
+oxwm.key.bind({ modkey, "Shift" }, "L", oxwm.spawn({ "sh", "-c", "betterlockscreen -l"}))
 
 -- Keybind overlay - Shows important keybindings on screen
 oxwm.key.bind({ modkey, "Shift" }, "Slash", oxwm.show_keybinds())
