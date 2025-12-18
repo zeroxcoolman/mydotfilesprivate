@@ -203,15 +203,11 @@ oxwm.key.bind({ modkey, "Shift" }, "Delete", oxwm.spawn({ "sh", "-c", "wlogout"}
 
 -- Volume controls
 oxwm.key.bind({}, "XF86AudioRaiseVolume",
-    oxwm.spawn({ "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%" })
+    oxwm.spawn({ "sh", "-c", "~/.config/hypr/scripts/volume.sh --inc" })
 )
 
 oxwm.key.bind({}, "XF86AudioLowerVolume",
-    oxwm.spawn({ "pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%" })
-)
-
-oxwm.key.bind({}, "XF86AudioMute",
-    oxwm.spawn({ "pactl", "set-sink-mute", "@DEFAULT_SINK@", "toggle" })
+    oxwm.spawn({ "sh", "-c", "~/.config/hypr/scripts/volume.sh --dec" })
 )
 
 
