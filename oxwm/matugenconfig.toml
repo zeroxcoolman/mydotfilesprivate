@@ -4,6 +4,8 @@ arguments = ["--zoom"]
 set = true
 
 [templates.betterlockscreen]
+input_path = "~/.config/matugen/templates/betterlockscreen-dummy.txt"
+output_path = "~/.cache/betterlockscreen/dummy.txt"
 post_hook = "betterlockscreen -u ~/.config/hypr/current_wallpaper --blur 0.5"
 
 [templates.oxwm]
