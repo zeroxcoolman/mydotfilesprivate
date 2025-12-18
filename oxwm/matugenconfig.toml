@@ -3,6 +3,9 @@ command = "xwallpaper"
 arguments = ["--zoom"]
 set = true
 
+[templates.betterlockscreen]
+post_hook = "betterlockscreen -u ~/.config/hypr/current_wallpaper --blur 0.5"
+
 [templates.oxwm]
 input_path = '~/.config/matugen/templates/oxwm-colors.lua'
 output_path = '~/.config/oxwm/matugen.lua'
