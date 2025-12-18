@@ -181,6 +181,9 @@ oxwm.key.bind({ modkey }, "R", oxwm.spawn({ "sh", "-c", "rofi -show drun" }))
 oxwm.key.bind({ modkey, "Shift" }, "S", oxwm.spawn({ "sh", "-c", "maim -s | xclip -selection clipboard -t image/png" }))
 oxwm.key.bind({ modkey }, "Q", oxwm.client.kill())
 
+-- screen lock
+oxwm.key.bind({ modkey }, "L", oxwm.spawn({ "sh", "-c", "betterlockscreen -l"}))
+
 -- Keybind overlay - Shows important keybindings on screen
 oxwm.key.bind({ modkey, "Shift" }, "Slash", oxwm.show_keybinds())
 
