@@ -243,12 +243,16 @@ oxwm.key.bind({ modkey, "Shift" }, "K", oxwm.client.move_stack(-1))
 
 -- Multi-monitor support
 
+--[[
 -- Focus next/previous Monitors
 oxwm.key.bind({ modkey }, "Comma", oxwm.monitor.focus(-1))
 oxwm.key.bind({ modkey }, "Period", oxwm.monitor.focus(1))
 -- Move window to next/previous Monitors
 oxwm.key.bind({ modkey, "Shift" }, "Comma", oxwm.monitor.tag(-1))
 oxwm.key.bind({ modkey, "Shift" }, "Period", oxwm.monitor.tag(1))
+--]]
+
+oxwm.key.bind({ modkey, "Shift" }, "Period", oxwm.spawn({ "sh", "-c", "~/.config/hypr/scripts/emojipickerx11.sh"}))
 
 -- Workspace (tag) navigation
 -- Switch to workspace N (tags are 0-indexed, so tag "1" is index 0)
