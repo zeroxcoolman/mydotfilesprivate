@@ -5,6 +5,7 @@
 rofi_theme="$HOME/.config/rofi/config-clipboard.rasi"
 msg='👀 note: CTRL+DEL = delete entry   ALT+DEL = wipe all'
 
+# GOES IN ~/.config/hypr/scripts/
 # Kill existing rofi
 pidof rofi >/dev/null && pkill rofi
 
