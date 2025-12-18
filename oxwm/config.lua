@@ -1,4 +1,4 @@
-wwwwwwww---@meta
+---@meta
 -------------------------------------------------------------------------------
 -- OXWM Configuration File
 -------------------------------------------------------------------------------
@@ -201,8 +201,22 @@ oxwm.key.bind({ modkey }, "B", oxwm.spawn({ "sh", "-c", "chromium"}))
 -- wLOGOUT
 oxwm.key.bind({ modkey, "Shift" }, "Delete", oxwm.spawn({ "sh", "-c", "wlogout"}))
 
+-- Volume controls
+oxwm.key.bind({}, "XF86AudioRaiseVolume",
+    oxwm.spawn({ "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%" })
+)
+
+oxwm.key.bind({}, "XF86AudioLowerVolume",
+    oxwm.spawn({ "pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%" })
+)
+
+oxwm.key.bind({}, "XF86AudioMute",
+    oxwm.spawn({ "pactl", "set-sink-mute", "@DEFAULT_SINK@", "toggle" })
+)
+
+
 -- change wallpaper
-oxwm.key.bind({ modkey, "Shift" }, "W", oxwm.spawn({ "sh", "-c", "~/.config/hypr/scripts/wppicker.sh"}))
+oxwm.key.bind({ modkey }, "W", oxwm.spawn({ "sh", "-c", "~/.config/hypr/scripts/wppicker.sh"}))
 
 -- Decrease/Increase master area width
 oxwm.key.bind({ modkey }, "H", oxwm.set_master_factor(-5))
@@ -316,5 +330,5 @@ oxwm.key.chord({
 
  oxwm.autostart("picom")
  oxwm.autostart("xwallpaper --zoom ~/.config/hypr/current_wallpaper")
---  oxwm.autostart("dunst")
+ oxwm.autostart("dunst &")
  oxwm.autostart("nm-applet")
