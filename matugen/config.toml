@@ -3,6 +3,10 @@ command = "swww"
 arguments = ["img", "--transition-type", "any", "--transition-fps", "60"]
 set = true
 
+[templates.oxwm]
+input_path = '~/.config/matugen/templates/oxwm-colors.lua'
+output_path = '~/.config/oxwm/matugen.lua'
+
 [templates.waybar]
 input_path = '~/.config/matugen/templates/colors.css'
 output_path = '~/.config/waybar/colors.css'
