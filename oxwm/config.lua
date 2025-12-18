@@ -25,8 +25,8 @@ local terminal = "kitty"
 local colors = require("matugen");
 
 -- Workspace tags - can be numbers, names, or icons (requires a Nerd Font)
--- local tags = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }
-local tags = { "", "󰊯", "", "", "󰙯", "󱇤", "", "󱘶", "󰧮" } -- Example of nerd font icon tags
+ local tags = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }
+--local tags = { "", "󰊯", "", "", "󰙯", "󱇤", "", "󱘶", "󰧮" } -- Example of nerd font icon tags
 
 -- Font for the status bar (use "fc-list" to see available fonts)
 local bar_font = "JetBrainsMono Nerd Font Propo:style=Bold:size=12"
@@ -65,6 +65,12 @@ local blocks = {
         interval = 1,
         color = colors.cyan,
         underline = true,
+    }),
+     oxwm.bar.block.static({
+        text = " │  ",
+        interval = 999999999,
+        color = colors.sep,
+        underline = false,
     }),
     -- Uncomment to add battery status (useful for laptops)
     oxwm.bar.block.battery({
@@ -170,9 +176,9 @@ oxwm.bar.set_scheme_selected(colors.cyan, colors.bg, colors.purple)
 oxwm.key.bind({ modkey }, "Return", oxwm.spawn_terminal())
 -- Launch Dmenu
 -- oxwm.key.bind({ modkey }, "D", oxwm.spawn({ "sh", "-c", "dmenu_run -l 10" }))
-oxwm.key.bind({ modkey }, "D", oxwm.spawn({ "sh", "-c", "rofi -show drun" }))
+oxwm.key.bind({ modkey }, "R", oxwm.spawn({ "sh", "-c", "rofi -show drun" }))
 -- Copy screenshot to clipboard
-oxwm.key.bind({ modkey }, "S", oxwm.spawn({ "sh", "-c", "maim -s | xclip -selection clipboard -t image/png" }))
+oxwm.key.bind({ modkey, "Shift" }, "S", oxwm.spawn({ "sh", "-c", "maim -s | xclip -selection clipboard -t image/png" }))
 oxwm.key.bind({ modkey }, "Q", oxwm.client.kill())
 
 -- Keybind overlay - Shows important keybindings on screen
@@ -188,6 +194,15 @@ oxwm.key.bind({ modkey }, "C", oxwm.layout.set("tiling"))
 oxwm.key.bind({ modkey }, "N", oxwm.layout.cycle())
 
 -- Master area controls (tiling layout)
+
+-- Browser
+oxwm.key.bind({ modkey }, "B", oxwm.spawn({ "sh", "-c", "chromium"}))
+
+-- wLOGOUT
+oxwm.key.bind({ modkey, "Shift" }, "Delete", oxwm.spawn({ "sh", "-c", "wlogout"}))
+
+-- change wallpaper
+oxwm.key.bind({ modkey, "Shift" }, "W", oxwm.spawn({ "sh", "-c", "~/.config/hypr/scripts/wppicker.sh"}))
 
 -- Decrease/Increase master area width
 oxwm.key.bind({ modkey }, "H", oxwm.set_master_factor(-5))
@@ -299,7 +314,7 @@ oxwm.key.chord({
 -- Commands to run once when OXWM starts
 -- Uncomment and modify these examples, or add your own
 
--- oxwm.autostart("picom")
--- oxwm.autostart("xwallpaper --zoom ~/walls/dune.jpg")
--- oxwm.autostart("dunst")
--- oxwm.autostart("nm-applet")
+ oxwm.autostart("picom")
+ oxwm.autostart("xwallpaper --zoom ~/.config/hypr/current_wallpaper")
+--  oxwm.autostart("dunst")
+ oxwm.autostart("nm-applet")
