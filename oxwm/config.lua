@@ -199,7 +199,7 @@ oxwm.key.bind({ modkey }, "N", oxwm.layout.cycle())
 oxwm.key.bind({ modkey }, "B", oxwm.spawn({ "sh", "-c", "chromium"}))
 
 -- wLOGOUT
-oxwm.key.bind({ modkey, "Shift" }, "Delete", oxwm.spawn({ "sh", "-c", "wlogout"}))
+oxwm.key.bind({ modkey, "Shift" }, "Delete", oxwm.quit())
 
 -- Volume controls
 oxwm.key.bind({}, "XF86AudioRaiseVolume",
@@ -213,6 +213,8 @@ oxwm.key.bind({}, "XF86AudioLowerVolume",
 
 -- change wallpaper
 oxwm.key.bind({ modkey }, "W", oxwm.spawn({ "sh", "-c", "~/.config/hypr/scripts/wppicker.sh"}))
+oxwm.key.bind({ modkey, "Shift" }, "W", oxwm.spawn({ "sh", "-c", "~/.config/hypr/scripts/wallpaper_random.sh"}))
+
 
 -- Decrease/Increase master area width
 oxwm.key.bind({ modkey }, "H", oxwm.set_master_factor(-5))
@@ -225,7 +227,7 @@ oxwm.key.bind({ modkey }, "P", oxwm.inc_num_master(-1))
 oxwm.key.bind({ modkey }, "A", oxwm.toggle_gaps())
 
 -- Window manager controls
-oxwm.key.bind({ modkey, "Shift" }, "Q", oxwm.quit())
+oxwm.key.bind({ modkey, "Shift" }, "Q", oxwm.spawn({ "sh", "-c", "~/.config/hypr/scripts/clipboardx11.sh"}))
 oxwm.key.bind({ modkey, "Shift" }, "R", oxwm.restart())
 
 -- Focus movement [1 for up in the stack, -1 for down]
@@ -324,7 +326,8 @@ oxwm.key.chord({
 -- Commands to run once when OXWM starts
 -- Uncomment and modify these examples, or add your own
 
- oxwm.autostart("picom")
- oxwm.autostart("xwallpaper --zoom ~/.config/hypr/current_wallpaper")
- oxwm.autostart("dunst &")
- oxwm.autostart("nm-applet")
+oxwm.autostart("picom")
+oxwm.autostart("xwallpaper --zoom ~/.config/hypr/current_wallpaper")
+oxwm.autostart("dunst &")
+oxwm.autostart("nm-applet")
+oxwm.autostart("greenclip daemon &")
