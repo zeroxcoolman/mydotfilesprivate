@@ -1,0 +1,1 @@
+# include everything, everything works with everything, (if you use mangowc or oxwmgit you gotta include everything else as well (including hypr but not oxwm) and if you use oxwm you gotta include eveyrthing (inclduing hypr but not mangowc))))))))))))))))
