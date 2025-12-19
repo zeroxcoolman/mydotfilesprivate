@@ -1,3 +1,4 @@
+
 @import "colors.css";
 
 * {
@@ -49,6 +50,7 @@ button:hover {
 #clock,
 #custom-sep,
 #battery,
+#custom-updates,
 #cpu,
 #memory,
 #disk,
@@ -64,10 +66,17 @@ button:hover {
 }
 
 /* ===== Individual Modules ===== */
-#clock {
+#
+clock {
     color: @tertiary;
     border-bottom: 4px solid @tertiary;
 }
+
+#custom-updates {
+   color: @secondary;
+   border-bottom: 4px solid @secondary;
+}
+
 
 #battery {
     color: @secondary;
