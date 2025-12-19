@@ -1,7 +1,23 @@
 [config.wallpaper]
-command = "swww"
-arguments = ["img", "--transition-type", "any", "--transition-fps", "60"]
+command = "xwallpaper"
+arguments = ["--zoom"]
 set = true
+
+[templates.fish]
+input_path = '~/.config/matugen/templates/empty.txt'
+output_path = '/tmp/matugen-fish'
+post_hook = 'fish-colors'
+
+[templates.mango]
+input_path = '~/.config/matugen/templates/mango.conf'
+output_path = '~/.config/mango/colors.conf'
+post_hook = "sed -i 's/0x#\\([0-9a-fA-F]\\{6\\}\\)ff/0x\\1ff/g' ~/.config/mango/colors.conf"
+
+[templates.swww]
+input_path = '~/.config/matugen/templates/betterlockscreen-dummy.txt'
+output_path = '~/.config/dummy/dummy.txt'
+post_hook = 'swww img --transition-type any --transition-fps 60 ~/.config/hypr/current_wallpaper'
+
 
 [templates.oxwm]
 input_path = '~/.config/matugen/templates/oxwm-colors.lua'
@@ -51,3 +67,5 @@ output_path = '~/.config/vesktop/themes/matugen.css'
 input_path = '~/.config/matugen/templates/nwg-dock-colors.css'
 output_path = '~/.config/nwg-dock-hyprland/colors.css'
 post_hook = '$HOME/.config/hypr/scripts/dockrestart.sh'
+
+
