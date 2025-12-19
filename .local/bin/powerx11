@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# Rofi power menu script using custom theme
+
+# Options
+options="Lock\nLogout\nReboot\nShutdown\nSuspend\nHibernate"
+
+# Show menu and get user choice
+chosen=$(echo -e "$options" | rofi -dmenu -p "Power Menu" -theme ~/.config/rofi/config-power-theme.rasi)
+
+# Execute based on choice
+case $chosen in
+    Lock)
+        # Replace with your lock command (e.g., i3lock, betterlockscreen, etc.)
+        i3lock -c 000000
+        ;;
+    Logout)
+        # Replace with your logout command based on your window manager
+        # For i3: i3-msg exit
+        # For bspwm: bspc quit
+        # For awesome: awesome-client "awesome.quit()"
+        pkill -KILL -u "$USER"
+        ;;
+    Reboot)
+        systemctl reboot
+        ;;
+    Shutdown)
+        systemctl poweroff
+        ;;
+    Suspend)
+        systemctl suspend
+        ;;
+    Hibernate)
+        systemctl hibernate
+        ;;
+esac

@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+
+# Dunst + Matugen integration script
+# Generates dunstrc with colors from your wallpaper
+
+# Configuration
+confDir="${XDG_CONFIG_HOME:-$HOME/.config}"
+dataDir="${XDG_DATA_HOME:-$HOME/.local/share}"
+dunstDir="${confDir}/dunst"
+
+# Get all available icon themes
+allIcons=$(find "${dataDir}/icons" /usr/share/icons -mindepth 1 -maxdepth 2 -name "icon-theme.cache" -print0 2>/dev/null | xargs -0 -n1 dirname 2>/dev/null | xargs -n1 basename 2>/dev/null | paste -sd, - 2>/dev/null)
+
+# Set defaults (customize these as needed)
+gtkIcon="${GTK_ICON_THEME:-Papirus-Dark}"
+font_name="${DUNST_FONT:-JetBrains Mono}"
+font_size="${DUNST_FONT_SIZE:-10}"
+corner_radius="${DUNST_CORNER_RADIUS:-10}"
+
+# Export variables for template substitution
+export DUNST_CORNER_RADIUS="${corner_radius}"
+export DUNST_ICON_THEME="${gtkIcon}${allIcons:+,}${allIcons}"
+export DUNST_FONT="${font_name}"
+export DUNST_FONT_SIZE="${font_size}"
+
+# Check if matugen is installed
+if ! command -v matugen &> /dev/null; then
+    echo "Error: matugen is not installed"
+    echo "Install it from: https://github.com/InioX/matugen"
+    exit 1
+fi
+
+# Generate dunstrc from matugen
+echo "Generating dunstrc with matugen colors..."
+if matugen generate 2>/dev/null; then
+    echo "✓ Successfully generated dunstrc"
+    
+    # Restart dunst if it's running
+    if pgrep -x dunst > /dev/null; then
+        echo "Restarting dunst..."
+        killall dunst
+        sleep 0.5
+        dunst &
+        echo "✓ Dunst restarted"
+    else
+        echo "Starting dunst..."
+        dunst &
+        echo "✓ Dunst started"
+    fi
+else
+    echo "✗ Error: matugen failed to generate config"
+    echo "Make sure you have set up matugen correctly with a wallpaper"
+    exit 1
+fi
