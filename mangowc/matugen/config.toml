@@ -1,0 +1,66 @@
+[config.wallpaper]
+command = "xwallpaper"
+arguments = ["--zoom"]
+set = true
+
+[templates.mango]
+input_path = '~/.config/matugen/templates/mango.conf'
+output_path = '~/.config/mango/colors.conf'
+post_hook = "sed -i 's/0x#\\([0-9a-fA-F]\\{6\\}\\)ff/0x\\1ff/g' ~/.config/mango/colors.conf"
+
+[templates.swww]
+input_path = '~/.config/matugen/templates/betterlockscreen-dummy.txt'
+output_path = '~/.config/dummy/dummy.txt'
+post_hook = 'swww img --transition-type any --transition-fps 60 ~/.config/hypr/current_wallpaper'
+
+
+[templates.oxwm]
+input_path = '~/.config/matugen/templates/oxwm-colors.lua'
+output_path = '~/.config/oxwm/matugen.lua'
+
+[templates.waybar]
+input_path = '~/.config/matugen/templates/colors.css'
+output_path = '~/.config/waybar/colors.css'
+post_hook = 'pkill -SIGUSR2 waybar'
+
+[templates.kitty]
+input_path = '~/.config/matugen/templates/kitty-colors.conf'
+output_path = '~/.config/kitty/colors.conf'
+post_hook = "kill -SIGUSR1 $(pidof kitty)"
+
+[templates.hyprland]
+input_path = '~/.config/matugen/templates/hyprland-colors.conf'
+output_path = '~/.config/hypr/colors.conf'
+post_hook = 'hyprctl reload'
+
+[templates.gtk3]
+input_path = '~/.config/matugen/templates/gtk-colors.css'
+output_path = '~/.config/gtk-3.0/colors.css'
+
+[templates.gtk4]
+input_path = '~/.config/matugen/templates/gtk-colors.css'
+output_path = '~/.config/gtk-4.0/colors.css'
+
+[templates.rofi]
+input_path = '~/.config/matugen/templates/rofi-colors.rasi'
+output_path = '~/.config/rofi/colors.rasi'
+
+[templates.cava]
+input_path = '~/.config/matugen/templates/matugen-cava'
+output_path = '~/.config/cava/config'
+post_hook = 'pgrep -x cava >/dev/null || cava &; pkill -USR1 cava'
+
+[templates.spicetify]
+input_path = '~/.config/matugen/templates/spotify-colors.ini'
+output_path = '~/.config/spicetify/Themes/text/color.ini'
+
+[templates.vesktop]
+input_path = '~/.config/matugen/templates/midnight-discord.css'
+output_path = '~/.config/vesktop/themes/matugen.css'
+
+[templates.nwg-dock-hyprland]
+input_path = '~/.config/matugen/templates/nwg-dock-colors.css'
+output_path = '~/.config/nwg-dock-hyprland/colors.css'
+post_hook = '$HOME/.config/hypr/scripts/dockrestart.sh'
+
+
