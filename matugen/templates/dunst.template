@@ -1,0 +1,118 @@
+# Dunst configuration template for matugen
+# Colors are automatically generated from your wallpaper
+# Save this to: ~/.config/matugen/templates/dunst.template
+
+[global]
+### Display ###
+monitor = 0
+follow = mouse
+enable_posix_regex = true
+
+### Geometry ###
+width = 300
+origin = top-right
+offset = (20,20)
+scale = 0
+notification_limit = 20
+
+### Progress bar ###
+progress_bar = true
+progress_bar_height = 10
+progress_bar_frame_width = 0
+progress_bar_min_width = 125
+progress_bar_max_width = 250
+progress_bar_corner_radius = 4
+
+### Appearance ###
+indicate_hidden = yes
+transparency = 10
+separator_height = 2
+padding = 8
+horizontal_padding = 8
+text_icon_padding = 10
+frame_width = 5
+gap_size = 5
+separator_color = auto
+sort = yes
+
+### Text ###
+font = ${DUNST_FONT} ${DUNST_FONT_SIZE}
+line_height = 3
+markup = full
+format = "%s\n%b"
+alignment = left
+vertical_alignment = center
+show_age_threshold = 60
+ellipsize = middle
+ignore_newline = no
+stack_duplicates = true
+hide_duplicate_count = false
+show_indicators = yes
+
+### Icons ###
+enable_recursive_icon_lookup = true
+icon_theme = "${DUNST_ICON_THEME}"
+icon_position = left
+min_icon_size = 64
+max_icon_size = 128
+
+### History ###
+sticky_history = yes
+history_length = 20
+
+### Misc/Advanced ###
+browser = /usr/bin/xdg-open
+always_run_script = true
+title = Dunst
+class = Dunst
+corner_radius = ${DUNST_CORNER_RADIUS}
+icon_corner_radius = ${DUNST_CORNER_RADIUS}
+ignore_dbusclose = false
+
+### Wayland ###
+force_xwayland = false
+
+### Legacy ###
+force_xinerama = false
+
+### Mouse ###
+mouse_left_click = context, close_current
+mouse_middle_click = do_action, close_current
+mouse_right_click = close_all
+
+[experimental]
+per_monitor_dpi = true
+
+### Urgency levels with matugen colors ###
+
+[urgency_low]
+background = "{{colors.surface_container}}"
+foreground = "{{colors.on_surface}}"
+frame_color = "{{colors.primary}}"
+timeout = 5
+
+[urgency_normal]
+background = "{{colors.surface_container_high}}"
+foreground = "{{colors.on_surface}}"
+frame_color = "{{colors.primary}}"
+timeout = 10
+
+[urgency_critical]
+background = "{{colors.error_container}}"
+foreground = "{{colors.on_error_container}}"
+frame_color = "{{colors.error}}"
+timeout = 0
+
+### App-specific rules ###
+
+[slack]
+desktop_entry = "^Slack$"
+new_icon = slack
+
+[telegram]
+desktop_entry = "^Telegram Desktop$"
+new_icon = telegram-desktop
+
+[skype]
+desktop_entry = "^Skype$"
+new_icon = skype

@@ -4,9 +4,9 @@ arguments = ["img", "--transition-type", "any", "--transition-fps", "60"]
 set = true
 
 [templates.dummy]
-input_path = '~/.config/matugen/templates/empty.txt'
-output_path = '/tmp/matugen-fish.txt'
-post_hook = '$HOME/.local/bin/fish-colors'
+input_path = '~/.config/matugen/templates/fish-colors.fish'
+output_path = '~/.config/fish/conf.d/matugen.fish'
+
 
 [templates.mango]
 input_path = '~/.config/matugen/templates/mango.conf'
