@@ -28,13 +28,11 @@
         "tray",
         "custom/sep",
         "custom/updates",
-        "custom/sep",
         "memory",
         "custom/sep",
         "clock",
         "custom/sep",
-        "battery",
-        "custom/sep"
+        "battery"
     ],
 
     // Modules configuration
@@ -80,9 +78,9 @@
             "warning": 30,
             "critical": 15
         },
-        "format": "Bat: {capacity}% {icon} {time}",
+        "format": "Bat: {capacity}%",
         "format-plugged": "{capacity}% ",
-        "format-alt": "Bat {capacity}%",
+        "format-alt": "Bat {capacity}% {icon} {time}",
         "format-time": "{H}:{M}",
         "format-icons": ["", "", "", "", ""]
     },
