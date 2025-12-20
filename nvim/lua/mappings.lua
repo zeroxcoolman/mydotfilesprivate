@@ -37,8 +37,9 @@ map("n", "<leader>sl", "<cmd>close<CR>", { desc = "close current split" })
 -- tab management
 map("n", "<leader>tt", "<cmd>tabnew<CR>", { desc = "open new tab" })
 map("n", "<leader>tl", "<cmd>tabclose<CR>", { desc = "close current tab" })
-map("n", "L", "<cmd>tabn<CR>", { desc = "go to next tab" })
-map("n", "H", "<cmd>tabp<CR>", { desc = "go to prev tab" })
+-- bufferline navigation
+map("n", "L", "<cmd>BufferLineCycleNext<CR>", { desc = "Next buffer" })
+map("n", "H", "<cmd>BufferLineCyclePrev<CR>", { desc = "Previous buffer" })
 map("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "open current buffer in new tab" })
 
 -- telescope
@@ -49,14 +50,14 @@ map("n", "<leader>fc", "<cmd>Telescope grep_string<cr>", { desc = "find string u
 map("n", "<leader>ft", "<cmd>TodoTelescope<cr>", { desc = "find todos" })
 
 -- lsp actions
-map("n", "gD", vim.lsp.buf.declaration, { desc = "go to declaration" })                               -- go to declaration
-map("n", "gd", "<cmd>Telescope lsp_definitions<CR>", { desc = "show LSP definitions" })               -- show LSP definitions
-map("n", "gi", "<cmd>Telescope lsp_implementations<CR>", { desc = "show LSP implementations" })       -- show LSP implementations
-map("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", { desc = "show LSP type definitions" })     -- show LSP type definitions
-map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "see available code actions" })     -- see available code actions, in visual mode will apply to selection
-map("n", "<leader>srn", vim.lsp.buf.rename, { desc = "smart rename" })                                -- smart rename
+map("n", "gD", vim.lsp.buf.declaration, { desc = "go to declaration" }) -- go to declaration
+map("n", "gd", "<cmd>Telescope lsp_definitions<CR>", { desc = "show LSP definitions" }) -- show LSP definitions
+map("n", "gi", "<cmd>Telescope lsp_implementations<CR>", { desc = "show LSP implementations" }) -- show LSP implementations
+map("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", { desc = "show LSP type definitions" }) -- show LSP type definitions
+map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "see available code actions" }) -- see available code actions, in visual mode will apply to selection
+map("n", "<leader>srn", vim.lsp.buf.rename, { desc = "smart rename" }) -- smart rename
 map("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", { desc = "show buffer diagnostics" }) -- show diagnostics for file
-map("n", "<leader>d", vim.diagnostic.open_float, { desc = "show line diagnostics" })                  -- show diagnostics for line
+map("n", "<leader>d", vim.diagnostic.open_float, { desc = "show line diagnostics" }) -- show diagnostics for line
 -- keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "go to previous diagnostic" }) -- jump to previous diagnostic in buffer
 -- keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "go to next diagnostic" }) -- jump to next diagnostic in buffer
 map("n", "g?", vim.lsp.buf.hover, { desc = "show documentation for what is under cursor" }) -- show documentation for what is under cursor
