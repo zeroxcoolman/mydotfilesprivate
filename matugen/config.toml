@@ -11,7 +11,7 @@ output_path = '~/.config/fish/conf.d/matugen.fish'
 [templates.mango]
 input_path = '~/.config/matugen/templates/mango.conf'
 output_path = '~/.config/mango/colors.conf'
-post_hook = "sed -i 's/0x#\\([0-9a-fA-F]\\{6\\}\\)ff/0x\\1ff/g' ~/.config/mango/colors.conf"
+post_hook = "sed -i 's/0x#\\([0-9a-fA-F]\\{6\\}\\)ff/0x\\1ff/g' ~/.config/mango/colors.conf && mmsg -d reload_config"
 
 [templates.xwallpaper]
 input_path = '~/.config/matugen/templates/betterlockscreen-dummy.txt'
