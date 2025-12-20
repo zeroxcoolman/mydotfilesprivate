@@ -51,7 +51,6 @@ button:hover {
 #custom-sep,
 #battery,
 #custom-updates,
-#cpu,
 #memory,
 #disk,
 #network,
@@ -66,8 +65,8 @@ button:hover {
 }
 
 /* ===== Individual Modules ===== */
-#
-clock {
+
+#clock {
     color: @tertiary;
     border-bottom: 4px solid @tertiary;
 }
