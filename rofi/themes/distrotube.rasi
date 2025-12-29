@@ -1,0 +1,110 @@
+@import "../../rofi/colors.rasi"
+@import "../../rofi/fonts.rasi"
+
+configuration {
+    modi: "window,drun,ssh,combi";
+    font: "hack 10";
+    combi-modi: "window,drun,ssh";
+    drun-icon-theme: "Tela circle blue dark";
+}
+
+
+
+* {
+    background-color:            #282c34;
+    border-color:                var(primary);
+    text-color:                  #bbc2cf;
+    font:                        "Ubuntu 10";
+    prompt-font:                 "Ubuntu Bold 10";
+    prompt-background:           #51afef;
+    prompt-foreground:           #282c34;
+    prompt-padding:              4px;
+    alternate-normal-background: #1c1f24;
+    alternate-normal-foreground: @text-color;
+    selected-normal-background:  #ae3f3e;
+    selected-normal-foreground:  #ffffff;
+    spacing:                     3;
+}
+
+#window {
+    border: 2;
+    padding: 5;
+}
+
+#mainbox {
+    border: 0;
+    padding: 0;
+}
+
+#message {
+    border: 1px dash 0px 0px;
+    padding: 1px;
+}
+
+#listview {
+    fixed-height: 0;
+    border: 2px solid 0px 0px;
+    border-color: var(surface-container);
+    spacing: 2px;
+    scrollbar: true;
+    padding: 2px 0px 0px;
+}
+
+#element {
+    border: 0;
+    padding: 3px;
+}
+
+#element.selected.normal {
+    background-color: var(primary);
+    text-color: var(on-primary);
+}
+
+#element.alternate.normal {
+    background-color: var(surface-container);
+    text-color: var(on-surface);
+}
+
+#scrollbar {
+    width: 0px;
+    border: 0;
+    handle-width: 0px;
+    padding: 0;
+}
+
+#sidebar {
+    border: 2px dash 0px 0px;
+}
+
+#button.selected {
+    background-color: var(primary);
+    text-color: var(on-primary);
+}
+
+#inputbar {
+    spacing: 0;
+    padding: 1px;
+}
+
+#case-indicator {
+    spacing: 0;
+}
+
+#entry {
+    padding: 4px 4px;
+    expand: false;
+    width: 10em;
+}
+
+#prompt {
+    padding: 4px;
+    background-color: var(primary);
+    text-color: var(on-primary);
+    font: "Ubuntu Bold 10";
+    border-radius: 2px;
+}
+
+element-text {
+    background-color: inherit;
+    text-color: inherit;
+}
