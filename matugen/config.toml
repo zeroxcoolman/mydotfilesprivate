@@ -3,11 +3,6 @@ command = "swww"
 arguments = ["img", "--transition-type", "any", "--transition-fps", "60"]
 set = true
 
-[templates.dummy]
-input_path = '~/.config/matugen/templates/fish-colors.fish'
-output_path = '~/.config/fish/conf.d/matugen.fish'
-
-
 [templates.mango]
 input_path = '~/.config/matugen/templates/mango.conf'
 output_path = '~/.config/mango/colors.conf'
@@ -67,4 +62,20 @@ input_path = '~/.config/matugen/templates/nwg-dock-colors.css'
 output_path = '~/.config/nwg-dock-hyprland/colors.css'
 post_hook = '$HOME/.config/hypr/scripts/dockrestart.sh'
 
+[templates.dummy]
+input_path = '~/.config/matugen/templates/fish-colors.fish'
+output_path = '~/.config/fish/conf.d/matugen.fish'
 
+[templates.sway]
+input_path = '~/.config/matugen/templates/sway.conf'
+output_path = '~/.config/sway/bar.conf'
+post_hook = 'swaymsg reload'
+
+[templates.windowsway]
+input_path = '~/.config/matugen/templates/windowsway.conf'
+output_path = '~/.config/sway/window.conf'
+post_hook = 'swaymsg reload'
+
+[templates.mwc]
+input_path = '~/.config/matugen/templates/mwc.conf'
+output_path = '~/.config/mwc/mwc.conf'
