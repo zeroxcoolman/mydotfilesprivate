@@ -1,4 +1,2 @@
 # THIS IS SET BY MATUGEN!!!
-# IF YOU WANT TO EDIT THE CONFIG, edit ~/.config/matugen/templates/mwc.conf THEN CHANGE WALLPAPER?
-# OR RELOAD
-# READDDDDDDDD
+# IF YOU WANT TO EDIT THE CONFIG, edit ~/.config/matugen/templates/mwc.conf THEN CHANGE WALLPAPER OR RELOAD
