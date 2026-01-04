@@ -1,0 +1,10 @@
+--- dwl.c
++++ dwl.c
+@@ -202,6 +202,7 @@ struct Monitor {
+ 	int gamma_lut_changed;
+ 	int nmaster;
+ 	char ltsymbol[16];
++	Client *prevc;
+ };
+ 
+ typedef struct {
