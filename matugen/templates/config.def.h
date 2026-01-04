@@ -34,8 +34,8 @@ static const uint32_t col_red   = 0xf7768eff; /* red */
 static const uint32_t col_grn   = 0x9ece6aff; /* green */
 static const uint32_t col_ylw   = 0xe0af68ff; /* yellow */
 static const uint32_t col_blu   = 0x7aa2f7ff; /* blue */
-static const uint32_t col_mag   = 0xbacf83ff; /* magenta */
-static const uint32_t col_cyn   = 0xbacf83ff; /* cyan (highlight) */
+static const uint32_t col_mag   = 0x{{colors.primary.default.hex_stripped}}ff; /* magenta */
+static const uint32_t col_cyn   = 0x{{colors.primary.default.hex_stripped}}ff; /* cyan (highlight) */
 static const uint32_t col_brblk = 0x444b6aff; /* bright black */
 
 // ANSI 16-color table for SGR (0..7 normal, 8..15 bright)

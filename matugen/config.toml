@@ -27,6 +27,10 @@ input_path = '~/.config/matugen/templates/kitty-colors.conf'
 output_path = '~/.config/kitty/colors.conf'
 post_hook = "kill -SIGUSR1 $(pidof kitty)"
 
+[templates.dwl]
+input_path = '~/.config/matugen/templates/config.def.h'
+output_path = '~/.config/dwldotfiles/dwl/config.def.h'
+
 [templates.hyprland]
 input_path = '~/.config/matugen/templates/hyprland-colors.conf'
 output_path = '~/.config/hypr/colors.conf'
