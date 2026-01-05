@@ -195,6 +195,10 @@ static const char *wmenucmd[] = {
 static const char *hyprlock[] = { "hyprlock", NULL};
 static const char *clipboard[] = { "clipboard", NULL};
 static const char *wppicker[] = {"wppicker", NULL};
+static const char *volumeup[] = {"volume", "--inc", NULL};
+static const char *volumedown[] = {"volume", "--dec", NULL};
+static const char *brightup[] = {"brightness", "--inc", NULL};
+static const char *brightdown[] = {"brightness", "--dec", NULL};
 
 static const Key keys[] = {
 	/* Note that Shift changes certain key codes: c -> C, 2 -> at, etc. */
@@ -205,20 +209,24 @@ static const Key keys[] = {
     {MODKEY|WLR_MODIFIER_SHIFT,         XKB_KEY_S,        spawn,        { .v = screenshotcmd  } },
 {MODKEY,         XKB_KEY_w,        spawn,        { .v = wppicker  } },
     //	{ MODKEY|WLR_MODIFIER_SHIFT,                    XKB_KEY_S,          spawn,          SHCMD("/home/tony/scripts/snip.sh") },
+    {MODKEY|WLR_MODIFIER_SHIFT,         XKB_KEY_L,        spawn,        { .v = hyprlock  } },
 	{ MODKEY,                    XKB_KEY_j,          focusstack,     {.i = +1} },
 	{ MODKEY,                    XKB_KEY_k,          focusstack,     {.i = -1} },
     { MODKEY, XKB_KEY_s,          spawn,          SHCMD("geom=\"$(slurp -f '%x,%y %wx%h')\"; grim -l 0 -g \"$geom\" - | wl-copy") },
 	{ MODKEY|WLR_MODIFIER_SHIFT,XKB_KEY_b,          togglebar,      {0} },
   { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_j, swapstack, {.i = +1} },
   { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_k, swapstack, {.i = -1} },
- 
 { MODKEY,                    XKB_KEY_b,           spawn,      {.v = browser} },
+{ 0,                    XKB_KEY_XF86MonBrightnessUp,           spawn,      {.v = brightup} },
+{ 0,                    XKB_KEY_XF86MonBrightnessDown,           spawn,      {.v = brightdown} },
+{ 0,                    XKB_KEY_XF86AudioRaiseVolume,           spawn,      {.v = volumeup} },
+{ 0,                    XKB_KEY_XF86AudioLowerVolume,           spawn,      {.v = volumedown} },
 	{ MODKEY,                    XKB_KEY_i,          incnmaster,     {.i = +1} },
 	{ MODKEY,                    XKB_KEY_p,          incnmaster,     {.i = -1} },
 	{ MODKEY,                    XKB_KEY_h,          setmfact,       {.f = -0.05f} },
 	{ MODKEY,                    XKB_KEY_l,          setmfact,       {.f = +0.05f} },
 	{ MODKEY|WLR_MODIFIER_SHIFT,                    XKB_KEY_Return,     zoom,           {0} },
-   
+   { MODKEY,                    XKB_KEY_Escape,     spawn,           {.v = wlogout } },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_J,          movestack,      {.i = +1} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_K,          movestack,      {.i = -1} },
 	{ MODKEY,                    XKB_KEY_Tab,        view,           {0} },
