@@ -279,7 +279,7 @@ layout {
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 spawn-sh-at-startup "qs -c ~/.config/quickshell/noctalia-shell/"
 spawn-sh-at-startup "swww-daemon"
-spawn-sh-at-startup "swaync"
+
 
 hotkey-overlay {
     // Uncomment this line to disable the "Important Hotkeys" pop-up at startup.
@@ -377,6 +377,8 @@ binds {
     Super+W hotkey-overlay-title="Wallpaper" { spawn-sh "qs -c noctalia-shell ipc call wallpaper toggle";}
     Super+Alt+C hotkey-overlay-title="Control Center" { spawn-sh "qs -c noctalia-shell ipc call controlCenter toggle"; }
     Super+Shift+W hotkey-overlay-title="Wallpaper Random" { spawn-sh "qs -c noctalia-shell ipc call wallpaper random"; }
+    Super+Shift+Q hotkey-overlay-title="clipboard" { spawn-sh "qs -c noctalia-shell ipc call launcher clipboard"; }
+    Super+Shift+Period hotkey-overlay-title="emoji" { spawn-sh "qs -c noctalia-shell ipc call launcher emoji"; }
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
     // For example, this is a standard bind to toggle the screen reader (orca).
