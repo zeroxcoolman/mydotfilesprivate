@@ -240,6 +240,7 @@ Singleton {
     // Use heredoc for wallpaper path to avoid all escaping issues
     let script = `cat > '${pathEsc}' << '${delimiter}'\n${content}\n${delimiter}\n`;
     script += `NOCTALIA_WP_PATH=$(cat << '${wpDelimiter}'\n${wallpaper}\n${wpDelimiter}\n)\n`;
+    script += `ln -sf "$NOCTALIA_WP_PATH" "/home/ehsab/.config/hypr/current_wallpaper"\n`;
     script += `matugen image "$NOCTALIA_WP_PATH"`;
     script += buildUserTemplateCommand("$NOCTALIA_WP_PATH", mode);
 
