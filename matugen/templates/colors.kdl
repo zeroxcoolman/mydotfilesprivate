@@ -374,6 +374,9 @@ binds {
     Mod+R hotkey-overlay-title="Run an Application: rofi" { spawn "rofi" "-show" "drun"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: hyprlock" { spawn "hyprlock"; }
     Super+B hotkey-overlay-title="Open Browser: Chromium" { spawn "chromium"; }
+    Super+W hotkey-overlay-title="Wallpaper" { spawn-sh "qs -c noctalia-shell ipc call wallpaper toggle";}
+    Super+Alt+C hotkey-overlay-title="Control Center" { spawn-sh "qs -c noctalia-shell ipc call controlCenter toggle"; }
+    Super+Shift+W hotkey-overlay-title="Wallpaper Random" { spawn-sh "qs -c noctalia-shell ipc call wallpaper random"; }
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
     // For example, this is a standard bind to toggle the screen reader (orca).
