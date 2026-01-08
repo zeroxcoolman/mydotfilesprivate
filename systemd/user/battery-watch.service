@@ -1,0 +1,8 @@
+[Unit]
+Description=Battery Watcher
+
+[Service]
+ExecStart=/home/ehsab/.config/user/scripts/battery-watch.sh
+
+[Install]
+WantedBy=default.target
