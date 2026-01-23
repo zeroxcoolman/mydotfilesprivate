@@ -1,0 +1,12 @@
+[DEBUG] Debug mode enabled
+[DEBUG] ----- Artix detection for 'cowsay' -----
+[DEBUG] Command: pacman -Si cowsay 2>/dev/null | grep '^Repository' | grep -qE '^(system|world|galaxy)$'
+[DEBUG] Exit code: 256
+[DEBUG] Matched Artix repo: no
+[DEBUG] ----- AUR detection for 'cowsay' -----
+[DEBUG] Command: git ls-remote https://aur.archlinux.org/cowsay.git >/dev/null 2>&1
+[DEBUG] Exit code: 0
+[DEBUG] ----- Final classification -----
+[DEBUG] is_artix = 0
+[DEBUG] is_aur   = 1
+[DEBUG] Clone command: git clone https://aur.archlinux.org/cowsay.git /opt/repo/builds/cowsay
