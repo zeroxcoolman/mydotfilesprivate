@@ -1,0 +1,121 @@
+#!/usr/bin/env bash
+
+set -e
+
+MAKEPKG_CONF="/etc/make-repo.conf"
+
+# Extract PKGDEST from make-repo.conf
+PKGDEST=$(grep '^PKGDEST=' "$MAKEPKG_CONF" | cut -d= -f2)
+REPO_DIR="$PKGDEST"
+REPO_DB="$REPO_DIR/build-repo.db.tar.gz"
+
+usage() {
+    echo "Usage: makebuild [options]"
+    echo ""
+    echo "Options:"
+    echo "  -s            Build package"
+    echo "  -i            Install package after build"
+    echo "  -r            Update repo database"
+    echo "  -a            Automation (build + repo-add + install)"
+    echo "  -p            Skip pacman sync and install"
+    echo "  -m            Print make-repo.conf"
+    echo "  -t <flags>    Pass custom flags directly to makepkg"
+    exit 1
+}
+
+DO_BUILD=0
+DO_INSTALL=0
+DO_REPO=0
+DO_AUTO=0
+SKIP_INSTALL=0
+EXTRA_MAKEPKG_FLAGS=()
+
+# -----------------------------
+# FLAG PARSER (supports -sir, -ap, -st --nocheck, etc.)
+# -----------------------------
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        -m)
+            cat "$MAKEPKG_CONF"
+            exit 0
+            ;;
+        -t)
+            shift
+            EXTRA_MAKEPKG_FLAGS=("$@")
+            break
+            ;;
+        -*)
+            flags="${1#-}"
+            for (( i=0; i<${#flags}; i++ )); do
+                f="${flags:$i:1}"
+                case "$f" in
+                    s) DO_BUILD=1 ;;
+                    i) DO_INSTALL=1 ;;
+                    r) DO_REPO=1 ;;
+                    a) DO_AUTO=1 ;;
+                    p) SKIP_INSTALL=1 ;;
+                    t)
+                        shift
+                        EXTRA_MAKEPKG_FLAGS=("$@")
+                        break 2
+                        ;;
+                    *)
+                        echo "Unknown flag: -$f"
+                        usage
+                        ;;
+                esac
+            done
+            ;;
+        *)
+            usage
+            ;;
+    esac
+    shift
+done
+
+# -----------------------------
+# AUTOMATION MODE
+# -----------------------------
+if [[ $DO_AUTO -eq 1 ]]; then
+    DO_BUILD=1
+    DO_REPO=1
+    DO_INSTALL=1
+fi
+
+# -----------------------------
+# NO FLAGS? SHOW USAGE
+# -----------------------------
+if [[ $DO_BUILD -eq 0 && $DO_INSTALL -eq 0 && $DO_REPO -eq 0 ]]; then
+    usage
+fi
+
+PKGNAME=$(basename "$(pwd)")
+
+# -----------------------------
+# BUILD
+# -----------------------------
+if [[ $DO_BUILD -eq 1 ]]; then
+    echo "==> Building $PKGNAME..."
+    env MAKEPKG_CONF="$MAKEPKG_CONF" makepkg -s "${EXTRA_MAKEPKG_FLAGS[@]}"
+fi
+
+# -----------------------------
+# UPDATE REPO
+# -----------------------------
+if [[ $DO_REPO -eq 1 ]]; then
+    echo "==> Updating repo database..."
+    repo-add "$REPO_DB" "$PKGDEST"/*.pkg.tar.zst
+fi
+
+# -----------------------------
+# INSTALL
+# -----------------------------
+if [[ $DO_INSTALL -eq 1 && $SKIP_INSTALL -eq 0 ]]; then
+    echo "==> Syncing pacman..."
+    sudo pacman -Sy
+
+    echo "==> Installing $PKGNAME..."
+    sudo pacman -S "$PKGNAME"
+fi
+
+echo "==> Done."
