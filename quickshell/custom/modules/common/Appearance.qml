@@ -78,74 +78,91 @@ Singleton {
         return animationsEnabled ? baseDuration : 0
     }
 
+    
     m3colors: QtObject {
         property bool darkmode: true
         property bool transparent: false
-        // Dark blue/grey background tuned for dark wallpapers
-        property color m3background: "#06070b"
-        property color m3onBackground: "#E3E6F0"
-        property color m3surface: "#06070b"
-        property color m3surfaceDim: "#05060a"
-        property color m3surfaceBright: "#141825"
-        property color m3surfaceContainerLowest: "#040508"
-        property color m3surfaceContainerLow: "#0B0E16"
-        property color m3surfaceContainer: "#111522"
-        property color m3surfaceContainerHigh: "#161B28"
-        property color m3surfaceContainerHighest: "#1B2233"
-        property color m3onSurface: "#E3E6F0"
-        property color m3surfaceVariant: "#3D455A"
-        property color m3onSurfaceVariant: "#C3CAD9"
-        property color m3inverseSurface: "#E3E6F0"
-        property color m3inverseOnSurface: "#151822"
-        property color m3outline: "#707894"
-        property color m3outlineVariant: "#3D455A"
+
+        // === Material You dynamic colors (Matugen templated) ===
+        property color m3background: "#0e1513"
+        property color m3onBackground: "#dde4e1"
+
+        property color m3surface: "#0e1513"
+        property color m3surfaceDim: "#0e1513"
+        property color m3surfaceBright: "#343a39"
+
+        property color m3surfaceContainerLowest: "#090f0e"
+        property color m3surfaceContainerLow: "#161d1c"
+        property color m3surfaceContainer: "#1a2120"
+        property color m3surfaceContainerHigh: "#252b2a"
+        property color m3surfaceContainerHighest: "#303635"
+
+        property color m3onSurface: "#dde4e1"
+        property color m3surfaceVariant: "#3f4947"
+        property color m3onSurfaceVariant: "#bec9c6"
+
+        property color m3inverseSurface: "#dde4e1"
+        property color m3inverseOnSurface: "#2b3230"
+
+        property color m3outline: "#899390"
+        property color m3outlineVariant: "#3f4947"
+
         property color m3shadow: "#000000"
         property color m3scrim: "#000000"
-        // Primary accent shifted to an electric-ish blue
-        property color m3surfaceTint: "#1F6CFF"
-        property color m3primary: "#83d3e3;"
-        property color m3onPrimary: "#0A1020"
-        property color m3primaryContainer: "#12244A"
-        property color m3onPrimaryContainer: "#C7D4FF"
-        property color m3inversePrimary: "#8CACFF"
-        property color m3secondary: "#9AA5C0"
-        property color m3onSecondary: "#151925"
-        property color m3secondaryContainer: "#242C40"
-        property color m3onSecondaryContainer: "#D6DDF0"
-        property color m3tertiary: "#d1c3c6"
-        property color m3onTertiary: "#372e30"
-        property color m3tertiaryContainer: "#31292b"
-        property color m3onTertiaryContainer: "#c1b4b7"
+
+        // === Primary ===
+        property color m3surfaceTint: "#82d5c9"
+        property color m3primary: "#82d5c9"
+        property color m3onPrimary: "#003732"
+        property color m3primaryContainer: "#005049"
+        property color m3onPrimaryContainer: "#9ef2e5"
+        property color m3inversePrimary: "#006a61"
+
+        // === Secondary ===
+        property color m3secondary: "#b1ccc7"
+        property color m3onSecondary: "#1c3531"
+        property color m3secondaryContainer: "#324b47"
+        property color m3onSecondaryContainer: "#cce8e2"
+
+        // === Tertiary ===
+        property color m3tertiary: "#adcae6"
+        property color m3onTertiary: "#153349"
+        property color m3tertiaryContainer: "#2e4961"
+        property color m3onTertiaryContainer: "#cce5ff"
+
+        // === Error ===
         property color m3error: "#ffb4ab"
         property color m3onError: "#690005"
         property color m3errorContainer: "#93000a"
         property color m3onErrorContainer: "#ffdad6"
-        property color m3primaryFixed: "#e7e0e7"
-        property color m3primaryFixedDim: "#cbc4cb"
-        property color m3onPrimaryFixed: "#1d1b1f"
-        property color m3onPrimaryFixedVariant: "#49454b"
-        property color m3secondaryFixed: "#e6e1e4"
-        property color m3secondaryFixedDim: "#cac5c8"
-        property color m3onSecondaryFixed: "#1d1b1d"
-        property color m3onSecondaryFixedVariant: "#484648"
-        property color m3tertiaryFixed: "#eddfe1"
-        property color m3tertiaryFixedDim: "#d1c3c6"
-        property color m3onTertiaryFixed: "#211a1c"
-        property color m3onTertiaryFixedVariant: "#4e4447"
-        property color m3success: "#B5CCBA"
-        property color m3onSuccess: "#213528"
-        property color m3successContainer: "#374B3E"
-        property color m3onSuccessContainer: "#D1E9D6"
-        property color term0: "#EDE4E4"
-        property color term1: "#B52755"
-        property color term2: "#A97363"
-        property color term3: "#AF535D"
-        property color term4: "#A67F7C"
-        property color term5: "#B2416B"
-        property color term6: "#8D76AD"
-        property color term7: "#272022"
-        property color term8: "#0E0D0D"
-        property color term9: "#B52755"
+
+        // === Fixed roles ===
+        property color m3primaryFixed: "#9ef2e5"
+        property color m3primaryFixedDim: "#82d5c9"
+        property color m3onPrimaryFixed: "#00201c"
+        property color m3onPrimaryFixedVariant: "#005049"
+
+        property color m3secondaryFixed: "#cce8e2"
+        property color m3secondaryFixedDim: "#b1ccc7"
+        property color m3onSecondaryFixed: "#05201c"
+        property color m3onSecondaryFixedVariant: "#324b47"
+
+        property color m3tertiaryFixed: "#cce5ff"
+        property color m3tertiaryFixedDim: "#adcae6"
+        property color m3onTertiaryFixed: "#001d31"
+        property color m3onTertiaryFixedVariant: "#2e4961"
+
+        // === Terminal palette (hard-coded, unchanged) ===
+        property color term0:  "#EDE4E4"
+        property color term1:  "#B52755"
+        property color term2:  "#A97363"
+        property color term3:  "#AF535D"
+        property color term4:  "#A67F7C"
+        property color term5:  "#B2416B"
+        property color term6:  "#8D76AD"
+        property color term7:  "#272022"
+        property color term8:  "#0E0D0D"
+        property color term9:  "#B52755"
         property color term10: "#A97363"
         property color term11: "#AF535D"
         property color term12: "#A67F7C"
@@ -153,6 +170,7 @@ Singleton {
         property color term14: "#8D76AD"
         property color term15: "#221A1A"
     }
+
 
     colors: QtObject {
         // Ink colors for aurora light mode - sumi-e inspired (Japanese ink wash)

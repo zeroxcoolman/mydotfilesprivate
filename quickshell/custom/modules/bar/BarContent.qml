@@ -8,27 +8,26 @@ import qs.modules.common.widgets
 import qs.modules.common.models
 import qs.modules.common.functions
 
+import "." as Local
 import "." as WindowModule
 import "." as WSModule
 import "." as ClockModule
 import "." as BatteryModule
 import "." as ResourcesModule
+import "." as SysTray
+
 
 Rectangle {
     anchors.fill: parent
     color: Appearance.colors.colLayer0
 
-    // ───────────────────────────────────────────────
-    // Vertical separator component
-    // ───────────────────────────────────────────────
-component VerticalBarSeparator: Rectangle {
+    
+    component VerticalBarSeparator: Rectangle {
     implicitWidth: 1
     implicitHeight: Appearance.sizes.barHeight * 0.5
     anchors.verticalCenter: parent.verticalCenter
     color: Appearance.colors.colOutlineVariant
 }
-
-
 
     // ───────────────────────────────────────────────
     // Main content container
@@ -41,7 +40,7 @@ component VerticalBarSeparator: Rectangle {
         // ───────────────────────────────────────────
         RowLayout {
             anchors.left: parent.left
-            anchors.leftMargin: 10
+            anchors.leftMargin: 5
             anchors.verticalCenter: parent.verticalCenter
             spacing: 8
 
@@ -68,6 +67,8 @@ component VerticalBarSeparator: Rectangle {
             }
         }
 
+
+
         // ───────────────────────────────────────────
         // RIGHT SECTION: Resources + Battery + Clock
         // ───────────────────────────────────────────
@@ -76,6 +77,16 @@ component VerticalBarSeparator: Rectangle {
             anchors.rightMargin: 10
             anchors.verticalCenter: parent.verticalCenter
             spacing: 12
+
+            SysTray.SysTray {
+                id: sysTray
+                visible: (Config.options?.bar?.modules?.sysTray ?? true) && root.useShortenedForm === 0
+                Layout.fillWidth: false
+                Layout.fillHeight: true
+                invertSide: Config.options?.bar?.bottom ?? false
+            }
+            
+            
 
             ResourcesModule.Resources {
                 alwaysShowAllResources: true

@@ -565,7 +565,7 @@ Singleton {
                 console.log("[Notifications] File not found, creating new file.")
                 // Ensure parent directory exists
                 const parentDir = root.filePath.substring(0, root.filePath.lastIndexOf('/'))
-                Process.exec(["/usr/bin/mkdir", "-p", parentDir])
+                Process.execDetached(["/usr/bin/mkdir", "-p", parentDir])
                 root.list = []
                 notifFileView.setText(stringifyList(root.list));
             } else {
