@@ -78,74 +78,91 @@ Singleton {
         return animationsEnabled ? baseDuration : 0
     }
 
+    
     m3colors: QtObject {
         property bool darkmode: true
         property bool transparent: false
-        // Dark blue/grey background tuned for dark wallpapers
-        property color m3background: "#06070b"
-        property color m3onBackground: "#E3E6F0"
-        property color m3surface: "#06070b"
-        property color m3surfaceDim: "#05060a"
-        property color m3surfaceBright: "#141825"
-        property color m3surfaceContainerLowest: "#040508"
-        property color m3surfaceContainerLow: "#0B0E16"
-        property color m3surfaceContainer: "#111522"
-        property color m3surfaceContainerHigh: "#161B28"
-        property color m3surfaceContainerHighest: "#1B2233"
-        property color m3onSurface: "#E3E6F0"
-        property color m3surfaceVariant: "#3D455A"
-        property color m3onSurfaceVariant: "#C3CAD9"
-        property color m3inverseSurface: "#E3E6F0"
-        property color m3inverseOnSurface: "#151822"
-        property color m3outline: "#707894"
-        property color m3outlineVariant: "#3D455A"
-        property color m3shadow: "#000000"
-        property color m3scrim: "#000000"
-        // Primary accent shifted to an electric-ish blue
-        property color m3surfaceTint: "#1F6CFF"
-        property color m3primary: "#83d3e3;"
-        property color m3onPrimary: "#0A1020"
-        property color m3primaryContainer: "#12244A"
-        property color m3onPrimaryContainer: "#C7D4FF"
-        property color m3inversePrimary: "#8CACFF"
-        property color m3secondary: "#9AA5C0"
-        property color m3onSecondary: "#151925"
-        property color m3secondaryContainer: "#242C40"
-        property color m3onSecondaryContainer: "#D6DDF0"
-        property color m3tertiary: "#d1c3c6"
-        property color m3onTertiary: "#372e30"
-        property color m3tertiaryContainer: "#31292b"
-        property color m3onTertiaryContainer: "#c1b4b7"
-        property color m3error: "#ffb4ab"
-        property color m3onError: "#690005"
-        property color m3errorContainer: "#93000a"
-        property color m3onErrorContainer: "#ffdad6"
-        property color m3primaryFixed: "#e7e0e7"
-        property color m3primaryFixedDim: "#cbc4cb"
-        property color m3onPrimaryFixed: "#1d1b1f"
-        property color m3onPrimaryFixedVariant: "#49454b"
-        property color m3secondaryFixed: "#e6e1e4"
-        property color m3secondaryFixedDim: "#cac5c8"
-        property color m3onSecondaryFixed: "#1d1b1d"
-        property color m3onSecondaryFixedVariant: "#484648"
-        property color m3tertiaryFixed: "#eddfe1"
-        property color m3tertiaryFixedDim: "#d1c3c6"
-        property color m3onTertiaryFixed: "#211a1c"
-        property color m3onTertiaryFixedVariant: "#4e4447"
-        property color m3success: "#B5CCBA"
-        property color m3onSuccess: "#213528"
-        property color m3successContainer: "#374B3E"
-        property color m3onSuccessContainer: "#D1E9D6"
-        property color term0: "#EDE4E4"
-        property color term1: "#B52755"
-        property color term2: "#A97363"
-        property color term3: "#AF535D"
-        property color term4: "#A67F7C"
-        property color term5: "#B2416B"
-        property color term6: "#8D76AD"
-        property color term7: "#272022"
-        property color term8: "#0E0D0D"
-        property color term9: "#B52755"
+
+        // === Material You dynamic colors (Matugen templated) ===
+        property color m3background: "{{colors.background.default.hex}}"
+        property color m3onBackground: "{{colors.on_background.default.hex}}"
+
+        property color m3surface: "{{colors.surface.default.hex}}"
+        property color m3surfaceDim: "{{colors.surface_dim.default.hex}}"
+        property color m3surfaceBright: "{{colors.surface_bright.default.hex}}"
+
+        property color m3surfaceContainerLowest: "{{colors.surface_container_lowest.default.hex}}"
+        property color m3surfaceContainerLow: "{{colors.surface_container_low.default.hex}}"
+        property color m3surfaceContainer: "{{colors.surface_container.default.hex}}"
+        property color m3surfaceContainerHigh: "{{colors.surface_container_high.default.hex}}"
+        property color m3surfaceContainerHighest: "{{colors.surface_container_highest.default.hex}}"
+
+        property color m3onSurface: "{{colors.on_surface.default.hex}}"
+        property color m3surfaceVariant: "{{colors.surface_variant.default.hex}}"
+        property color m3onSurfaceVariant: "{{colors.on_surface_variant.default.hex}}"
+
+        property color m3inverseSurface: "{{colors.inverse_surface.default.hex}}"
+        property color m3inverseOnSurface: "{{colors.inverse_on_surface.default.hex}}"
+
+        property color m3outline: "{{colors.outline.default.hex}}"
+        property color m3outlineVariant: "{{colors.outline_variant.default.hex}}"
+
+        property color m3shadow: "{{colors.shadow.default.hex}}"
+        property color m3scrim: "{{colors.scrim.default.hex}}"
+
+        // === Primary ===
+        property color m3surfaceTint: "{{colors.primary.default.hex}}"
+        property color m3primary: "{{colors.primary.default.hex}}"
+        property color m3onPrimary: "{{colors.on_primary.default.hex}}"
+        property color m3primaryContainer: "{{colors.primary_container.default.hex}}"
+        property color m3onPrimaryContainer: "{{colors.on_primary_container.default.hex}}"
+        property color m3inversePrimary: "{{colors.inverse_primary.default.hex}}"
+
+        // === Secondary ===
+        property color m3secondary: "{{colors.secondary.default.hex}}"
+        property color m3onSecondary: "{{colors.on_secondary.default.hex}}"
+        property color m3secondaryContainer: "{{colors.secondary_container.default.hex}}"
+        property color m3onSecondaryContainer: "{{colors.on_secondary_container.default.hex}}"
+
+        // === Tertiary ===
+        property color m3tertiary: "{{colors.tertiary.default.hex}}"
+        property color m3onTertiary: "{{colors.on_tertiary.default.hex}}"
+        property color m3tertiaryContainer: "{{colors.tertiary_container.default.hex}}"
+        property color m3onTertiaryContainer: "{{colors.on_tertiary_container.default.hex}}"
+
+        // === Error ===
+        property color m3error: "{{colors.error.default.hex}}"
+        property color m3onError: "{{colors.on_error.default.hex}}"
+        property color m3errorContainer: "{{colors.error_container.default.hex}}"
+        property color m3onErrorContainer: "{{colors.on_error_container.default.hex}}"
+
+        // === Fixed roles ===
+        property color m3primaryFixed: "{{colors.primary_fixed.default.hex}}"
+        property color m3primaryFixedDim: "{{colors.primary_fixed_dim.default.hex}}"
+        property color m3onPrimaryFixed: "{{colors.on_primary_fixed.default.hex}}"
+        property color m3onPrimaryFixedVariant: "{{colors.on_primary_fixed_variant.default.hex}}"
+
+        property color m3secondaryFixed: "{{colors.secondary_fixed.default.hex}}"
+        property color m3secondaryFixedDim: "{{colors.secondary_fixed_dim.default.hex}}"
+        property color m3onSecondaryFixed: "{{colors.on_secondary_fixed.default.hex}}"
+        property color m3onSecondaryFixedVariant: "{{colors.on_secondary_fixed_variant.default.hex}}"
+
+        property color m3tertiaryFixed: "{{colors.tertiary_fixed.default.hex}}"
+        property color m3tertiaryFixedDim: "{{colors.tertiary_fixed_dim.default.hex}}"
+        property color m3onTertiaryFixed: "{{colors.on_tertiary_fixed.default.hex}}"
+        property color m3onTertiaryFixedVariant: "{{colors.on_tertiary_fixed_variant.default.hex}}"
+
+        // === Terminal palette (hard-coded, unchanged) ===
+        property color term0:  "#EDE4E4"
+        property color term1:  "#B52755"
+        property color term2:  "#A97363"
+        property color term3:  "#AF535D"
+        property color term4:  "#A67F7C"
+        property color term5:  "#B2416B"
+        property color term6:  "#8D76AD"
+        property color term7:  "#272022"
+        property color term8:  "#0E0D0D"
+        property color term9:  "#B52755"
         property color term10: "#A97363"
         property color term11: "#AF535D"
         property color term12: "#A67F7C"
@@ -153,6 +170,7 @@ Singleton {
         property color term14: "#8D76AD"
         property color term15: "#221A1A"
     }
+
 
     colors: QtObject {
         // Ink colors for aurora light mode - sumi-e inspired (Japanese ink wash)

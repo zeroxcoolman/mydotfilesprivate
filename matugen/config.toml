@@ -1,6 +1,6 @@
 [config.wallpaper]
-command = "swww"
-arguments = ["img", "--transition-type", "any", "--transition-fps", "60"]
+command = "swaybg"
+arguments = ["-i"]
 set = true
 
 [templates.mango]
@@ -17,9 +17,22 @@ post_hook = 'xwallpaper --zoom ~/.config/hypr/current_wallpaper'
 input_path = '~/.config/matugen/templates/oxwm-colors.lua'
 output_path = '~/.config/oxwm/matugen.lua'
 
+[templates.hamr]
+input_path = '~/.config/matugen/templates/hamr.json'
+output_path = '~/.config/quickshell/hamr/defaults/colors.json'
+
 [templates.nvim]
-input_path = '~/.config/matugen/templates/nvim.lua'
+input_path = '~/.config/matugen/templates/nvim-small.lua'
 output_path = '~/.config/nvim/colors/ex-matugen.lua'
+
+[templates.shell]
+input_path = '~/.config/matugen/templates/hamr.json'
+output_path = '~/.config/nucleus-shell/config/colors.json'
+
+[templates.m3colors]
+input_path = '~/.config/matugen/templates/m3colors.qml'
+output_path = '~/.config/quickshell/custom/modules/common/Appearance.qml'
+post_hook = 'pkill -f "qs -c custom" && qs -c custom & disown'
 
 [templates.waybar]
 input_path = '~/.config/matugen/templates/colors.css'

@@ -3,6 +3,7 @@ import qs.modules.common.widgets
 import qs.services
 import QtQuick
 import QtQuick.Layouts
+import qs
 
 Item {
     id: root
@@ -41,10 +42,10 @@ Item {
         id: mouseArea
         anchors.fill: parent
         hoverEnabled: true
-        acceptedButtons: Qt.NoButton
 
-        ClockWidgetTooltip {
+                ClockWidgetTooltip {
             hoverTarget: mouseArea
         }
+
     }
 }

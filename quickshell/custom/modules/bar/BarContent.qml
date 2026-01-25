@@ -12,24 +12,51 @@ import "." as WindowModule
 import "." as WSModule
 import "." as ClockModule
 import "." as BatteryModule
+import "." as ResourcesModule
 
 Rectangle {
     anchors.fill: parent
     color: Appearance.colors.colLayer0
 
-    // We switch from RowLayout to absolute anchoring for perfect centering
+    // ───────────────────────────────────────────────
+    // Vertical separator component
+    // ───────────────────────────────────────────────
+component VerticalBarSeparator: Rectangle {
+    implicitWidth: 1
+    implicitHeight: Appearance.sizes.barHeight * 0.5
+    anchors.verticalCenter: parent.verticalCenter
+    color: Appearance.colors.colOutlineVariant
+}
+
+
+
+    // ───────────────────────────────────────────────
+    // Main content container
+    // ───────────────────────────────────────────────
     Item {
         anchors.fill: parent
 
-        // LEFT: Active window title
-        WindowModule.ActiveWindow {
+        // ───────────────────────────────────────────
+        // LEFT SECTION: Sidebar button + Active Window
+        // ───────────────────────────────────────────
+        RowLayout {
             anchors.left: parent.left
             anchors.leftMargin: 10
             anchors.verticalCenter: parent.verticalCenter
-            width: 300
+            spacing: 8
+
+            LeftSidebarButton { }
+
+
+            WindowModule.ActiveWindow {
+                Layout.preferredWidth: 300
+                Layout.alignment: Qt.AlignVCenter
+            }
         }
 
-        // CENTER: Workspaces (perfectly centered)
+        // ───────────────────────────────────────────
+        // CENTER SECTION: Workspaces (perfectly centered)
+        // ───────────────────────────────────────────
         Item {
             anchors.centerIn: parent
             width: workspaces.implicitWidth
@@ -41,20 +68,37 @@ Rectangle {
             }
         }
 
-        // RIGHT: Battery + Clock
+        // ───────────────────────────────────────────
+        // RIGHT SECTION: Resources + Battery + Clock
+        // ───────────────────────────────────────────
         RowLayout {
             anchors.right: parent.right
             anchors.rightMargin: 10
             anchors.verticalCenter: parent.verticalCenter
-            spacing: 8
+            spacing: 12
 
+            ResourcesModule.Resources {
+                alwaysShowAllResources: true
+            }
+
+            VerticalBarSeparator { }
 
             BatteryModule.BatteryIndicator { }
-            ClockModule.ClockWidget { }
+
+            VerticalBarSeparator { }
+
+            ClockModule.ClockWidget {
+    id: clock
+
+    MouseArea {
+        anchors.fill: parent
+        onClicked: {
+            GlobalStates.waffleNotificationCenterOpen =
+                !GlobalStates.waffleNotificationCenterOpen
         }
     }
 }
 
-
-
-
+        }
+    }
+}
