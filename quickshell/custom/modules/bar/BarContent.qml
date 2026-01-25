@@ -15,7 +15,7 @@ import "." as ClockModule
 import "." as BatteryModule
 import "." as ResourcesModule
 import "." as SysTray
-
+import "." as Swaync
 
 Rectangle {
     anchors.fill: parent
@@ -86,28 +86,18 @@ Rectangle {
                 invertSide: Config.options?.bar?.bottom ?? false
             }
             
-            
+Swaync.Swaync { }
 
-            ResourcesModule.Resources {
-                alwaysShowAllResources: true
-            }
+VerticalBarSeparator { }
 
-            VerticalBarSeparator { }
+BatteryModule.BatteryIndicator { }
 
-            BatteryModule.BatteryIndicator { }
 
-            VerticalBarSeparator { }
+VerticalBarSeparator { }
 
-            ClockModule.ClockWidget {
+
+ClockModule.ClockWidget {
     id: clock
-
-    MouseArea {
-        anchors.fill: parent
-        onClicked: {
-            GlobalStates.waffleNotificationCenterOpen =
-                !GlobalStates.waffleNotificationCenterOpen
-        }
-    }
 }
 
         }

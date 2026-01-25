@@ -27,7 +27,7 @@ Item {
               : Appearance.colors.colLayer1)
         border.width: Appearance.inirEverywhere ? 1 : (root.cardStyleEverywhere ? 1 : 0)
         border.color: Appearance.inirEverywhere ? Appearance.inir.colBorder : Appearance.colors.colLayer0Border
-        radius: 5
+        radius: 10
     }
 
     GridLayout {
