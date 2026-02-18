@@ -49,11 +49,8 @@
 #define CLEANMASK(mask)         (mask & ~(numlockmask|LockMask) & (ShiftMask|ControlMask|Mod1Mask|Mod2Mask|Mod3Mask|Mod4Mask|Mod5Mask))
 #define INTERSECT(x,y,w,h,m)    (MAX(0, MIN((x)+(w),(m)->wx+(m)->ww) - MAX((x),(m)->wx)) \
                                * MAX(0, MIN((y)+(h),(m)->wy+(m)->wh) - MAX((y),(m)->wy)))
-#define INTERSECT(x,y,w,h,m)    (MAX(0, MIN((x)+(w),(m)->wx+(m)->ww) - MAX((x),(m)->wx)) \
-                               * MAX(0, MIN((y)+(h),(m)->wy+(m)->wh) - MAX((y),(m)->wy)))
-#define INTERSECT(x,y,w,h,m)    (MAX(0, MIN((x)+(w),(m)->mx+(m)->mw) - MAX((x),(m)->mx)) \
-                               * MAX(0, MIN((y)+(h),(m)->my+(m)->mh) - MAX((y),(m)->my)))
-#define ISVISIBLEONTAG(C, T)    ((C->tags & T))
+
+#define ISVISIBLEONTAG(C, T) (C->tags & T)
 #define ISVISIBLE(C)            ISVISIBLEONTAG(C, C->mon->tagset[C->mon->seltags])
 
 #define MOUSEMASK               (BUTTONMASK|PointerMotionMask)
@@ -107,6 +104,8 @@ struct Client {
 typedef struct {
 	unsigned int mod;
 	KeySym keysym;
+  void (*func)(const Arg *);
+  const Arg arg;
 } Key;
 
 typedef struct {
@@ -239,6 +238,7 @@ static void tag(const Arg *arg);
 static void tagmon(const Arg *arg);
 static void togglebar(const Arg *arg);
 static void togglefloating(const Arg *arg);
+static void togglefloatingandarrange(const Arg *arg);
 static void toggletag(const Arg *arg);
 static void toggleview(const Arg *arg);
 static void unfocus(Client *c, int setfocus);
@@ -300,8 +300,6 @@ static Display *dpy;
 static Drw *drw;
 static Monitor *mons, *selmon;
 static Window root, wmcheckwin;
-unsigned int currentkey = 0;
-static Bool leader = False;
 
 /* configuration, allows nested code to access above variables */
 #include "config.h"
@@ -1010,33 +1008,26 @@ grabbuttons(Client *c, int focused)
 void
 grabkeys(void)
 {
-	updatenumlockmask();
-	{
-		/* unsigned int i, j, k; */
-		unsigned int i, c, k;
-		unsigned int modifiers[] = { 0, LockMask, numlockmask, numlockmask|LockMask };
-		int start, end, skip;
-		KeySym *syms;
+    updatenumlockmask();
+    unsigned int i, j;
+    unsigned int modifiers[] = { 0, LockMask, numlockmask, numlockmask|LockMask };
+    int start, end, skip;
+    KeySym *syms;
 
-		XUngrabKey(dpy, AnyKey, AnyModifier, root);
-		XDisplayKeycodes(dpy, &start, &end);
-		syms = XGetKeyboardMapping(dpy, start, end - start + 1, &skip);
-		if (!syms)
-			return;
+    XUngrabKey(dpy, AnyKey, AnyModifier, root);
+    XDisplayKeycodes(dpy, &start, &end);
+    syms = XGetKeyboardMapping(dpy, start, end - start + 1, &skip);
 
-		for (k = start; k <= end; k++)
-			for (i = 0; i < LENGTH(keychords); i++)
-				/* skip modifier codes, we do that ourselves */
-				if (keychords[i]->keys[currentkey].keysym == syms[(k - start) * skip])
-					for (c = 0; c < LENGTH(modifiers); c++)
-						XGrabKey(dpy, k,
-							 keychords[i]->keys[currentkey].mod | modifiers[c],
-							 root, True,
-							 GrabModeAsync, GrabModeAsync);
-                if(currentkey > 0)
-                        XGrabKey(dpy, XKeysymToKeycode(dpy, XK_Escape), AnyModifier, root, True, GrabModeAsync, GrabModeAsync);
-		XFree(syms);
-	}
+    if (!syms)
+        return;
+
+    for (i = 0; i < LENGTH(keys); i++)
+        for (j = 0; j < LENGTH(modifiers); j++)
+            XGrabKey(dpy, XKeysymToKeycode(dpy, keys[i].keysym),
+                     keys[i].mod | modifiers[j],
+                     root, True, GrabModeAsync, GrabModeAsync);
+
+    XFree(syms);
 }
 
 void
@@ -1061,52 +1052,20 @@ isuniquegeom(XineramaScreenInfo *unique, size_t n, XineramaScreenInfo *info)
 void
 keypress(XEvent *e)
 {
-	/* unsigned int i; */
-    XEvent event = *e;
-    unsigned int ran = 0;
-	KeySym keysym;
-	XKeyEvent *ev;
+    unsigned int i;
+    KeySym keysym;
+    XKeyEvent *ev;
 
-    Keychord *arr1[sizeof(keychords) / sizeof(Keychord*)];
-    Keychord *arr2[sizeof(keychords) / sizeof(Keychord*)];
-    memcpy(arr1, keychords, sizeof(keychords));
-    Keychord **rpointer = arr1;
-    Keychord **wpointer = arr2;
+    ev = &e->xkey;
+    keysym = XKeycodeToKeysym(dpy, (KeyCode)ev->keycode, 0);
 
-    size_t r = sizeof(keychords)/ sizeof(Keychord*);
-
-    while(1){
-            ev = &event.xkey;
-            keysym = XKeycodeToKeysym(dpy, (KeyCode)ev->keycode, 0);
-            size_t w = 0;
-            for (int i = 0; i < r; i++){
-                    if(keysym == (*(rpointer + i))->keys[currentkey].keysym
-                       && CLEANMASK((*(rpointer + i))->keys[currentkey].mod) == CLEANMASK(ev->state)
-                       && (*(rpointer + i))->func){
-                            if((*(rpointer + i))->n == currentkey +1){
-                                    (*(rpointer + i))->func(&((*(rpointer + i))->arg));
-                                    ran = 1;
-                            }else{
-                                    *(wpointer + w) = *(rpointer + i);
-                                    w++;
-                            }
-                    }
-            }
-            currentkey++;
-            if(w == 0 || ran == 1)
-                    break;
-            grabkeys();
-            while (running && !XNextEvent(dpy, &event) && !ran)
-                    if(event.type == KeyPress)
-                            break;
-            r = w;
-            Keychord **holder = rpointer;
-            rpointer = wpointer;
-            wpointer = holder;
-    }
-    currentkey = 0;
-    grabkeys();
+    for (i = 0; i < LENGTH(keys); i++)
+        if (keysym == keys[i].keysym
+        && CLEANMASK(keys[i].mod) == CLEANMASK(ev->state)
+        && keys[i].func)
+            keys[i].func(&(keys[i].arg));
 }
+
 
 /*void*/
 /*keypress(XEvent *e)*/
@@ -1991,6 +1950,14 @@ togglefloating(const Arg *arg)
 			selmon->sel->w, selmon->sel->h, 0);
 	arrange(selmon);
 }
+
+void
+togglefloatingandarrange(const Arg *arg)
+{
+    togglefloating(arg);
+    arrange(selmon);
+}
+
 
 void
 toggletag(const Arg *arg)

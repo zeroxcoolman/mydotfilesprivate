@@ -2,6 +2,12 @@
 -------------------------------------------------------------------------------
 -- OXWM Configuration File
 -------------------------------------------------------------------------------
+-- This is the default configuration for OXWM, a dynamic window manager.
+-- Edit this file and reload with Mod+Shift+R (no compilation needed)
+--
+-- For more information about configuring OXWM, see the documentation.
+-- The Lua Language Server provides autocomplete and type checking.
+-------------------------------------------------------------------------------
 
 ---Load type definitions for LSP
 ---@module 'oxwm'
@@ -15,73 +21,63 @@
 -- Modifier key: "Mod4" is the Super/Windows key, "Mod1" is Alt
 local modkey = "Mod4"
 
--- Terminal emulator command (defualts to alacritty)
+-- Terminal emulator command (defaults to alacritty)
 local terminal = "kitty"
 
 -- Color palette - customize these to match your theme
 -- Alternatively you can import other files in here, such as
 -- local colors = require("colors.lua") and make colors.lua a file
 -- in the ~/.config/oxwm directory
-local colors = require("matugen");
+local colors = require("matugen")
 
 -- Workspace tags - can be numbers, names, or icons (requires a Nerd Font)
- local tags = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }
---local tags = { "", "󰊯", "", "", "󰙯", "󱇤", "", "󱘶", "󰧮" } -- Example of nerd font icon tags
+local tags = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }
+-- local tags = { "", "󰊯", "", "", "󰙯", "󱇤", "", "󱘶", "󰧮" } -- Example of nerd font icon tags
 
 -- Font for the status bar (use "fc-list" to see available fonts)
-local bar_font = "JetBrainsMono Nerd Font Propo:style=Bold:size=12"
+local bar_font = "JetBrainsMono Nerd Font Mono:style=Bold:size=13"
 
 -- Define your blocks
 -- Similar to widgets in qtile, or dwmblocks
 local blocks = {
-    oxwm.bar.block.shell({
-        format = " {}",
-        command = "uname -r",
-        interval = 999999999,
-        color = colors.red,
-        underline = true,
-    }),
-    oxwm.bar.block.static({
-        text = " │  ",
-        interval = 999999999,
-        color = colors.sep,
-        underline = false,
-    }),
-    oxwm.bar.block.ram({
-        format = "󰍛 Ram: {used}/{total} GB",
-        interval = 5,
-        color = colors.light_blue,
-        underline = true,
-    }),
-    oxwm.bar.block.static({
-        text = " │  ",
-        interval = 999999999,
-        color = colors.sep,
-        underline = false,
-    }),
-    oxwm.bar.block.datetime({
-        format = "󰸘 {}",
-        date_format = "%a, %b %d - %-I:%M %P",
-        interval = 1,
-        color = colors.cyan,
-        underline = true,
-    }),
-     oxwm.bar.block.static({
-        text = " │  ",
-        interval = 999999999,
-        color = colors.sep,
-        underline = false,
-    }),
-    -- Uncomment to add battery status (useful for laptops)
-    oxwm.bar.block.battery({
-         format = "Bat: {}%",
-         charging = "⚡ Bat: {}%",
-         discharging = "- Bat: {}%",
-         full = "✓ Bat: {}%",
-         interval = 30,
-         color = colors.green,
-         underline = true,
-     }),
+
+
+	oxwm.bar.block.shell({
+		format = "{}",
+		command = "echo 'oxwm-0.11.2'",
+		interval = 999999999,
+		color = colors.fg,
+		underline = true,
+	}),
+	oxwm.bar.block.static({
+		text = "│",
+		interval = 999999999,
+		color = colors.sep,
+		underline = false,
+	}),
+	oxwm.bar.block.datetime({
+		format = "{}",
+		date_format = "%a, %b %d - %-I:%M %P",
+		interval = 1,
+		color = colors.cyan,
+		underline = true,
+	}),
+	oxwm.bar.block.static({
+		text = "│",
+		interval = 999999999,
+		color = colors.sep,
+		underline = false,
+	}),
+	-- Uncomment to add battery status (useful for laptops)
+	oxwm.bar.block.battery({
+		format = "Bat: {}%",
+		charging = "⚡ Bat: {}%",
+		discharging = "- Bat: {}%",
+		full = "✓ Bat: {}%",
+		interval = 30,
+		color = colors.green,
+		underline = true,
+	}),
 };
 
 -------------------------------------------------------------------------------
@@ -108,14 +104,14 @@ oxwm.set_layout_symbol("tabbed", "[=]")
 -- Width in pixels
 oxwm.border.set_width(2)
 -- Color of focused window border
-oxwm.border.set_focused_color(colors.grey)
+oxwm.border.set_focused_color(colors.cyan)
 -- Color of unfocused window borders
-oxwm.border.set_unfocused_color(colors.purple)
+oxwm.border.set_unfocused_color(colors.sep)
 
 -- Smart Enabled = No border if 1 window
-oxwm.gaps.set_smart(false)
+-- oxwm.gaps.set_smart(disabled)
 -- Inner gaps (horizontal, vertical) in pixels
-oxwm.gaps.set_inner(5, 5)
+oxwm.gaps.set_inner(7, 7)
 -- Outer gaps (horizontal, vertical) in pixels
 oxwm.gaps.set_outer(5, 5)
 
@@ -133,10 +129,10 @@ oxwm.gaps.set_outer(5, 5)
 
 -- Examples (uncomment to use):
 oxwm.rule.add({ instance = "gimp", floating = true })
-oxwm.rule.add({ instance = "brave-browser", tag = 2 })
-oxwm.rule.add({ class = "firefox", tag = 3 })
-oxwm.rule.add({ instance = "slack", tag = 4 })
-oxwm.rule.add({ instance = "discord", tag = 5 })
+-- oxwm.rule.add({ class = "Alacritty", tag = 9, focus = true })
+-- oxwm.rule.add({ class = "firefox", title = "Library", floating = true })
+-- oxwm.rule.add({ class = "firefox", tag = 2 })
+-- oxwm.rule.add({ instance = "mpv", floating = true })
 
 -- To find window properties, use xprop and click on the window
 -- WM_CLASS(STRING) shows both instance and class (instance, class)
@@ -159,6 +155,11 @@ oxwm.bar.set_scheme_normal(colors.fg, colors.bg, "#444444")
 oxwm.bar.set_scheme_occupied(colors.cyan, colors.bg, colors.cyan)
 -- Currently selected tag
 oxwm.bar.set_scheme_selected(colors.cyan, colors.bg, colors.purple)
+-- Urgent tags (windows requesting attention)
+oxwm.bar.set_scheme_urgent(colors.red, colors.bg, colors.red)
+
+-- Hide tags that have no windows and are not selected
+-- oxwm.bar.set_hide_vacant_tags(true)
 
 -------------------------------------------------------------------------------
 -- Keybindings
@@ -175,53 +176,30 @@ oxwm.bar.set_scheme_selected(colors.cyan, colors.bg, colors.purple)
 
 oxwm.key.bind({ modkey }, "Return", oxwm.spawn_terminal())
 -- Launch Dmenu
--- oxwm.key.bind({ modkey }, "D", oxwm.spawn({ "sh", "-c", "dmenu_run -l 10" }))
 oxwm.key.bind({ modkey }, "R", oxwm.spawn({ "sh", "-c", "rofi -show drun" }))
 -- Copy screenshot to clipboard
 oxwm.key.bind({ modkey, "Shift" }, "S", oxwm.spawn({ "sh", "-c", "maim -s | xclip -selection clipboard -t image/png" }))
 oxwm.key.bind({ modkey }, "Q", oxwm.client.kill())
 
--- screen lock
-oxwm.key.bind({ modkey, "Shift" }, "L", oxwm.spawn({ "sh", "-c", "betterlockscreen -l"}))
-
 -- Keybind overlay - Shows important keybindings on screen
-oxwm.key.bind({ modkey, "Shift" }, "Slash", oxwm.show_keybinds())
+oxwm.key.bind({ modkey, "Shift"
+}, "Slash", oxwm.show_keybinds())
 
 -- Window state toggles
 oxwm.key.bind({ modkey, "Shift" }, "F", oxwm.client.toggle_fullscreen())
-oxwm.key.bind({ modkey, "Shift" }, "Space", oxwm.client.toggle_floating())
+oxwm.key.bind({ modkey }, "Space", oxwm.client.toggle_floating())
 
 -- Layout management
+oxwm.key.bind({ modkey }, "F", oxwm.layout.set("normie"))
 oxwm.key.bind({ modkey }, "C", oxwm.layout.set("tiling"))
 -- Cycle through layouts
 oxwm.key.bind({ modkey }, "N", oxwm.layout.cycle())
 
 -- Master area controls (tiling layout)
 
--- Browser
-oxwm.key.bind({ modkey }, "B", oxwm.spawn({ "sh", "-c", "chromium"}))
-
--- wLOGOUT
-oxwm.key.bind({ modkey, "Shift" }, "Delete", oxwm.quit())
-
--- Volume controls
-oxwm.key.bind({}, "XF86AudioRaiseVolume",
-    oxwm.spawn({ "sh", "-c", "~/.config/hypr/scripts/volume.sh --inc" })
-)
-
-oxwm.key.bind({}, "XF86AudioLowerVolume",
-    oxwm.spawn({ "sh", "-c", "~/.config/hypr/scripts/volume.sh --dec" })
-)
-
-
--- change wallpaper
-oxwm.key.bind({ modkey }, "W", oxwm.spawn({ "sh", "-c", "~/.config/hypr/scripts/wppicker.sh"}))
-oxwm.key.bind({ modkey, "Shift" }, "W", oxwm.spawn({ "sh", "-c", "~/.config/hypr/scripts/wallpaper_random.sh"}))
-
-
 -- Decrease/Increase master area width
-oxwm.key.bind({ modkey }, "H", oxwm.set_master_factor(-5))
-oxwm.key.bind({ modkey }, "L", oxwm.set_master_factor(5))
+oxwm.key.bind({ modkey }, "H", oxwm.set_master_factor(-20))
+oxwm.key.bind({ modkey }, "L", oxwm.set_master_factor(20))
 -- Increment/Decrement number of master windows
 oxwm.key.bind({ modkey }, "I", oxwm.inc_num_master(1))
 oxwm.key.bind({ modkey }, "P", oxwm.inc_num_master(-1))
@@ -230,12 +208,13 @@ oxwm.key.bind({ modkey }, "P", oxwm.inc_num_master(-1))
 oxwm.key.bind({ modkey }, "A", oxwm.toggle_gaps())
 
 -- Window manager controls
-oxwm.key.bind({ modkey, "Shift" }, "Q", oxwm.spawn({ "sh", "-c", "~/.config/hypr/scripts/clipboardx11.sh"}))
+oxwm.key.bind({ modkey, "Shift" }, "Q", oxwm.quit())
 oxwm.key.bind({ modkey, "Shift" }, "R", oxwm.restart())
 
 -- Focus movement [1 for up in the stack, -1 for down]
 oxwm.key.bind({ modkey }, "J", oxwm.client.focus_stack(1))
 oxwm.key.bind({ modkey }, "K", oxwm.client.focus_stack(-1))
+oxwm.key.bind({ modkey }, "B", oxwm.spawn({ "sh", "-c", "firefox-bin" }))
 
 -- Window movement (swap position in stack)
 oxwm.key.bind({ modkey, "Shift" }, "J", oxwm.client.move_stack(1))
@@ -243,16 +222,12 @@ oxwm.key.bind({ modkey, "Shift" }, "K", oxwm.client.move_stack(-1))
 
 -- Multi-monitor support
 
---[[
 -- Focus next/previous Monitors
 oxwm.key.bind({ modkey }, "Comma", oxwm.monitor.focus(-1))
 oxwm.key.bind({ modkey }, "Period", oxwm.monitor.focus(1))
 -- Move window to next/previous Monitors
 oxwm.key.bind({ modkey, "Shift" }, "Comma", oxwm.monitor.tag(-1))
 oxwm.key.bind({ modkey, "Shift" }, "Period", oxwm.monitor.tag(1))
---]]
-
-oxwm.key.bind({ modkey, "Shift" }, "Period", oxwm.spawn({ "sh", "-c", "~/.config/hypr/scripts/emojipickerx11.sh"}))
 
 -- Workspace (tag) navigation
 -- Switch to workspace N (tags are 0-indexed, so tag "1" is index 0)
@@ -308,24 +283,9 @@ oxwm.key.bind({ modkey, "Control", "Shift" }, "9", oxwm.tag.toggletag(8))
 -- Format: {{modifiers}, key1}, {{modifiers}, key2}, ...
 -- Example: Press Mod4+Space, then release and press T to spawn a terminal
 oxwm.key.chord({
-    { { modkey }, "Space" },
-    { {},         "T" }
+	{ { modkey }, "Space" },
+	{ {},         "T" }
 }, oxwm.spawn_terminal())
-
-oxwm.key.chord({
-    { { modkey }, "F" },
-    { {},         "B" }
-}, oxwm.spawn({ "sh", "-c", "$HOME/repos/dmenu-scripts/bookmarks-dmenu.sh" }))
-
-oxwm.key.chord({
-    { { modkey }, "F" },
-    { {},         "F" }
-}, oxwm.spawn({ "sh", "-c", "$HOME/repos/dmenu-scripts/repos-dmenu.sh" }))
-
-oxwm.key.chord({
-    { { modkey }, "F" },
-    { {},         "O" }
-}, oxwm.spawn({ "sh", "-c", "$HOME/repos/dmenu-scripts/tmux-dmenu.sh" }))
 
 -------------------------------------------------------------------------------
 -- Autostart
@@ -333,8 +293,8 @@ oxwm.key.chord({
 -- Commands to run once when OXWM starts
 -- Uncomment and modify these examples, or add your own
 
+
 oxwm.autostart("picom")
 oxwm.autostart("xwallpaper --zoom ~/.config/hypr/current_wallpaper")
-oxwm.autostart("dunst &")
-oxwm.autostart("nm-applet")
 oxwm.autostart("greenclip daemon &")
+-- oxwm.autostart("nm-applet")
