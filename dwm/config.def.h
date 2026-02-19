@@ -87,10 +87,11 @@ static const int lockfullscreen =
 /*#include "fibonacci.c"*/
 
 static const Layout layouts[] = {
-    /* symbol     arrange function */
-    {"󰝘", tile}, /* first entry is default */
-    {"", NULL},  /* no layout function means floating behavior */
-    {"[M]", monocle}, {"", spiral}, {"[\\]", dwindle},
+    {"", tile},    // tile
+    {"", NULL},    // float
+    {"", monocle}, // monocle
+    {"", spiral},  // spiral
+    {"", dwindle}, // dwindle
 };
 
 /* key definitions */
@@ -111,7 +112,7 @@ static const Layout layouts[] = {
 static char dmenumon[2] =
     "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = {"rofi", "-show", "drun", NULL};
-static const char *termcmd[] = {"kitty", NULL};
+static const char *termcmd[] = {"st", NULL};
 static const char *firefoxcmd[] = {"firefox-bin", NULL};
 static const char *slock[] = {"slock", NULL};
 static const char *screenshotcmd[] = {
@@ -142,6 +143,7 @@ static Key keys[] = {
     {MODKEY, XK_h, setmfact, {.f = -0.05}},
     {MODKEY, XK_l, setmfact, {.f = +0.05}},
 
+    {MODKEY, XK_n, cyclelayout, {.i = +1}},
     {MODKEY, XK_z, incrgaps, {.i = +3}},
     {MODKEY, XK_x, incrgaps, {.i = -3}},
     {MODKEY, XK_a, togglegaps, {0}},

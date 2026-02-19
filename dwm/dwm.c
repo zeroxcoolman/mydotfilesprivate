@@ -191,6 +191,8 @@ typedef struct {
 } Rule;
 
 /* function declarations */
+void cyclelayout(const Arg *arg);
+
 static void applyrules(Client *c);
 static int applysizehints(Client *c, int *x, int *y, int *w, int *h,
                           int interact);
@@ -1839,6 +1841,24 @@ void fullscreen(const Arg *arg) {
     setlayout(&((Arg){.v = last_layout}));
   }
   togglebar(arg);
+}
+
+void cyclelayout(const Arg *arg) {
+  int i;
+  for (i = 0; i < LENGTH(layouts); i++) {
+    if (&layouts[i] == selmon->lt[selmon->sellt])
+      break;
+  }
+
+  i += arg->i;
+
+  if (i < 0)
+    i = LENGTH(layouts) - 1;
+  else if (i >= LENGTH(layouts))
+    i = 0;
+
+  Arg a = {.v = &layouts[i]};
+  setlayout(&a);
 }
 
 void setlayout(const Arg *arg) {
