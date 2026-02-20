@@ -117,6 +117,7 @@ static const char *rofi[] = {
 static const char *emacsclient[] = {"emacsclient", "-c", "-a", "", NULL};
 static const char *chromium[] = {"chromium", NULL};
 static const char *betterlockscreen[] = {"betterlockscreen", "-l", NULL};
+static const char statussep = ';';
 
 static Key keys[] = {
     {MODKEY, XK_r, spawn, {.v = dmenucmd}},

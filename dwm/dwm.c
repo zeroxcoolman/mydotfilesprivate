@@ -346,7 +346,8 @@ static void swapwindow(const Arg *arg);
 /* variables */
 static char *argv0;
 static const char broken[] = "broken";
-static char stext[256];
+static char stext[1024];
+static char estext[1024];
 static int screen;
 static int sw, sh; /* X display screen geometry width, height */
 static int bh;     /* bar height */
@@ -875,6 +876,121 @@ Monitor *dirtomon(int dir) {
   return m;
 }
 
+int drawstatusbar(Monitor *m, int bh, int extra, char *stext) {
+  int ret, i, w, x, len;
+  short isCode = 0;
+  char *text;
+  char *p;
+
+  len = strlen(stext) + 1;
+  if (!(text = (char *)malloc(sizeof(char) * len)))
+    die("malloc");
+  p = text;
+  memcpy(text, stext, len);
+
+  /* compute width of the status text */
+  w = 0;
+  i = -1;
+  while (text[++i]) {
+    if (text[i] == '^') {
+      if (!isCode) {
+        isCode = 1;
+        text[i] = '\0';
+        w += TEXTW(text) - lrpad;
+        text[i] = '^';
+        if (text[++i] == 'f')
+          w += atoi(text + ++i);
+      } else {
+        isCode = 0;
+        text = text + i + 1;
+        i = -1;
+      }
+    }
+  }
+  if (!isCode)
+    w += TEXTW(text) - lrpad;
+  else
+    isCode = 0;
+  text = p;
+
+  if (extra) {
+    w = m->ww;
+    ret = x = 1;
+  } else {
+    w += 2; /* 1px padding on both sides */
+    ret = x = m->ww - w;
+  }
+
+  drw_setscheme(drw, scheme[LENGTH(colors)]);
+  drw->scheme[ColFg] = scheme[SchemeNorm][ColFg];
+  drw->scheme[ColBg] = scheme[SchemeNorm][ColBg];
+  drw_rect(drw, x, 0, w, bh, 1, 1);
+  x++;
+
+  /* process status text */
+  i = -1;
+  while (text[++i]) {
+    if (text[i] == '^' && !isCode) {
+      isCode = 1;
+
+      text[i] = '\0';
+      w = TEXTW(text) - lrpad;
+      drw_text(drw, x, 0, w, bh, 0, text, 0);
+
+      x += w;
+
+      /* process code */
+      while (text[++i] != '^') {
+        if (text[i] == 'c') {
+          char buf[8];
+          memcpy(buf, (char *)text + i + 1, 7);
+          buf[7] = '\0';
+          drw_clr_create(drw, &drw->scheme[ColFg], buf);
+          i += 7;
+        } else if (text[i] == 'b') {
+          char buf[8];
+          memcpy(buf, (char *)text + i + 1, 7);
+          buf[7] = '\0';
+          drw_clr_create(drw, &drw->scheme[ColBg], buf);
+          i += 7;
+        } else if (text[i] == 'd') {
+          drw->scheme[ColFg] = scheme[SchemeNorm][ColFg];
+          drw->scheme[ColBg] = scheme[SchemeNorm][ColBg];
+        } else if (text[i] == 'r') {
+          int rx = atoi(text + ++i);
+          while (text[++i] != ',')
+            ;
+          int ry = atoi(text + ++i);
+          while (text[++i] != ',')
+            ;
+          int rw = atoi(text + ++i);
+          while (text[++i] != ',')
+            ;
+          int rh = atoi(text + ++i);
+
+          drw_rect(drw, rx + x, ry, rw, rh, 1, 0);
+        } else if (text[i] == 'f') {
+          x += atoi(text + ++i);
+        }
+      }
+
+      text = text + i + 1;
+      i = -1;
+      isCode = 0;
+    }
+  }
+
+  if (!isCode) {
+    w = TEXTW(text) - lrpad;
+    drw_text(drw, x, 0, w, bh, 0, text, 0);
+  }
+
+  drw_setscheme(drw, scheme[SchemeNorm]);
+  free(p);
+
+  return ret;
+}
+
 void drawbar(Monitor *m) {
   if (usealtbar)
     return;
@@ -886,12 +1002,9 @@ void drawbar(Monitor *m) {
   if (!m->showbar)
     return;
 
-  /* STATUS TEXT */
-  if (m == selmon) {
-    drw_setscheme(drw, scheme[SchemeNorm]);
-    tw = TEXTW(stext) - lrpad + 2;
-    drw_text(drw, m->ww - tw, 0, tw, bh, 0, stext, 0);
-  }
+  /* STATUS2D MAIN BAR (top-right) */
+  if (m == selmon)
+    tw = m->ww - drawstatusbar(m, bh, 0, stext);
 
   /* TAG OCCUPANCY */
   for (c = m->clients; c; c = c->next) {
@@ -913,10 +1026,9 @@ void drawbar(Monitor *m) {
 
     drw_text(drw, x, 0, w, bh, lrpad / 2, tags[i], urg & 1 << i);
 
-    /* underline active tag (70% width, centered) */
     if (m->tagset[m->seltags] & 1 << i) {
-      int uw = w * 0.7;          /* underline width */
-      int ux = x + (w - uw) / 2; /* center underline */
+      int uw = w * 0.7;
+      int ux = x + (w - uw) / 2;
       drw_rect(drw, ux, bh - 2, uw, 2, 1, 0);
     }
 
@@ -930,7 +1042,6 @@ void drawbar(Monitor *m) {
 
   /* TITLE AREA */
   if ((w = m->ww - tw - x) > bh) {
-    /* clear title area to avoid overlap artifacts */
     drw_setscheme(drw, scheme[m == selmon ? SchemeSel : SchemeNorm]);
     drw_rect(drw, x, 0, w, bh, 1, 1);
 
@@ -939,7 +1050,6 @@ void drawbar(Monitor *m) {
           (m->sel->icon && m->sel->icw > 0 && m->sel->ich > 0 &&
            m->sel->icw < 256 && m->sel->ich < 256 && drw && drw->picture);
 
-      /* truncated title with ellipsis */
       char titlebuf[256];
       strncpy(titlebuf, m->sel->name, 50);
       titlebuf[50] = '\0';
@@ -950,7 +1060,6 @@ void drawbar(Monitor *m) {
       int iconw = have_icon ? m->sel->icw : 0;
       int spacing = have_icon ? ICONSPACING : 0;
 
-      /* clamp text width */
       int maxtext = w - iconw - spacing;
       if (maxtext < 0)
         maxtext = 0;
@@ -960,7 +1069,6 @@ void drawbar(Monitor *m) {
       int total = iconw + spacing + textw;
       int start = x + (w - total) / 2;
 
-      /* ICON */
       if (have_icon) {
         int icon_x = start;
         int icon_y = (bh - m->sel->ich) / 2;
@@ -968,13 +1076,18 @@ void drawbar(Monitor *m) {
         start += iconw + spacing;
       }
 
-      /* TEXT */
       drw_text(drw, start, 0, textw, bh, 0, titlebuf, 0);
     }
   }
 
-  /* MAP BAR */
+  /* MAP MAIN BAR */
   drw_map(drw, m->barwin, 0, 0, m->ww, bh);
+
+  /* STATUS2D EXTRA BAR (bottom) */
+  if (m == selmon) {
+    drawstatusbar(m, bh, 1, estext);
+    drw_map(drw, m->extrabarwin, 0, 0, m->ww, bh);
+  }
 }
 
 void drawbars(void) {
@@ -2174,7 +2287,10 @@ void setup(void) {
   cursor[CurResize] = drw_cur_create(drw, XC_sizing);
   cursor[CurMove] = drw_cur_create(drw, XC_fleur);
   /* init appearance */
-  scheme = ecalloc(LENGTH(colors), sizeof(Clr *));
+
+  scheme = ecalloc(LENGTH(colors) + 1, sizeof(Clr *));
+  scheme[LENGTH(colors)] = drw_scm_create(drw, colors[0], 3);
+
   for (i = 0; i < LENGTH(colors); i++)
     scheme[i] = drw_scm_create(drw, colors[i], 3);
   /* init bars */
@@ -2464,44 +2580,71 @@ void updatebars(void) {
                                            EnterWindowMask | LeaveWindowMask};
 
   XClassHint ch = {"dwm", "dwm"};
-  for (m = mons; m; m = m->next) {
-    if (m->barwin)
-      continue;
-    m->barwin = XCreateWindow(
-        dpy, root, m->wx, m->by, m->ww, bh, 0, DefaultDepth(dpy, screen),
-        CopyFromParent, DefaultVisual(dpy, screen),
-        CWOverrideRedirect | CWBackPixmap | CWEventMask, &wa);
 
+  for (m = mons; m; m = m->next) {
+
+    /* MAIN BAR */
+    if (!m->barwin) {
+      m->barwin = XCreateWindow(
+          dpy, root, m->wx, m->by, m->ww, bh, 0, DefaultDepth(dpy, screen),
+          CopyFromParent, DefaultVisual(dpy, screen),
+          CWOverrideRedirect | CWBackPixmap | CWEventMask, &wa);
+
+      XDefineCursor(dpy, m->barwin, cursor[CurNormal]->cursor);
+      XMapRaised(dpy, m->barwin);
+      XSetClassHint(dpy, m->barwin, &ch);
+    }
+
+    /* EXTRA BAR (status2d) */
+    if (!m->extrabarwin) {
+      m->extrabarwin = XCreateWindow(
+          dpy, root, m->wx, m->eby, m->ww, bh, 0, DefaultDepth(dpy, screen),
+          CopyFromParent, DefaultVisual(dpy, screen),
+          CWOverrideRedirect | CWBackPixmap | CWEventMask, &wa);
+
+      XDefineCursor(dpy, m->extrabarwin, cursor[CurNormal]->cursor);
+      XMapRaised(dpy, m->extrabarwin);
+      XSetClassHint(dpy, m->extrabarwin, &ch);
+    }
+
+    /* TAG PREVIEW WINDOW */
     if (!m->tagwin) {
-      XSetWindowAttributes wa = {.override_redirect = True,
-                                 .background_pixel = BlackPixel(dpy, screen),
-                                 .event_mask = ExposureMask};
+      XSetWindowAttributes wa2 = {.override_redirect = True,
+                                  .background_pixel = BlackPixel(dpy, screen),
+                                  .event_mask = ExposureMask};
 
       m->tagwin =
           XCreateWindow(dpy, root, m->wx, m->wy + bh, m->ww / scalepreview,
                         m->wh / scalepreview, 0, DefaultDepth(dpy, screen),
                         CopyFromParent, DefaultVisual(dpy, screen),
-                        CWOverrideRedirect | CWBackPixel | CWEventMask, &wa);
+                        CWOverrideRedirect | CWBackPixel | CWEventMask, &wa2);
 
-      /* ignore pointer events on the preview window */
       XSelectInput(dpy, m->tagwin, ExposureMask);
     }
-
-    XDefineCursor(dpy, m->barwin, cursor[CurNormal]->cursor);
-    XMapRaised(dpy, m->barwin);
-    XSetClassHint(dpy, m->barwin, &ch);
   }
 }
 
 void updatebarpos(Monitor *m) {
   m->wy = m->my;
   m->wh = m->mh;
+
   if (m->showbar) {
-    m->wh -= m->bh;
-    m->by = m->topbar ? m->wy : m->wy + m->wh;
-    m->wy = m->topbar ? m->wy + m->bh : m->wy;
-  } else
-    m->by = -m->bh;
+    /* shrink window area by two bars */
+    m->wh -= bh * 2;
+
+    /* move window area down if topbar */
+    m->wy = m->topbar ? m->wy + bh : m->wy;
+
+    /* main bar position */
+    m->by = m->topbar ? m->wy - bh : m->wy + m->wh;
+
+    /* extra bar position */
+    m->eby = m->topbar ? m->wy + m->wh : m->wy - bh;
+
+  } else {
+    m->by = -bh;
+    m->eby = -bh;
+  }
 }
 
 void updateclientlist(void) {
@@ -2649,11 +2792,25 @@ void updatesizehints(Client *c) {
 }
 
 void updatestatus(void) {
-  if (!gettextprop(root, XA_WM_NAME, stext, sizeof(stext)))
+  char text[2048];
+
+  if (!gettextprop(root, XA_WM_NAME, text, sizeof(text))) {
     strcpy(stext, "dwm-" VERSION);
+    estext[0] = '\0';
+  } else {
+    char *e = strchr(text, statussep);
+    if (e) {
+      *e = '\0';
+      e++;
+      strncpy(estext, e, sizeof(estext) - 1);
+    } else {
+      estext[0] = '\0';
+    }
+    strncpy(stext, text, sizeof(stext) - 1);
+  }
+
   drawbar(selmon);
 }
-
 void updatetitle(Client *c) {
   if (!gettextprop(c->win, netatom[NetWMName], c->name, sizeof c->name))
     gettextprop(c->win, XA_WM_NAME, c->name, sizeof c->name);
