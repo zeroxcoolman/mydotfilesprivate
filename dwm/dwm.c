@@ -92,7 +92,7 @@
 
 /* enums */
 enum { CurNormal, CurResize, CurMove, CurLast }; /* cursor */
-enum { SchemeNorm, SchemeSel };                  /* color schemes */
+enum { SchemeNorm, SchemeSel, SchemeLast };      /* color schemes */
 enum {
   NetSupported,
   NetWMName,
@@ -207,7 +207,6 @@ struct Monitor {
   int tagx[5];
   int tagw[5];
   int eby;
-  Window extrabarwin;
 };
 
 typedef struct {
@@ -344,6 +343,12 @@ static void previewtag(const Arg *arg);
 static void swapwindow(const Arg *arg);
 
 /* variables */
+static char normbgcolor[] = "#222222";
+static char normbordercolor[] = "#444444";
+static char normfgcolor[] = "#bbbbbb";
+static char selfgcolor[] = "#eeeeee";
+static char selbordercolor[] = "#005577";
+static char selbgcolor[] = "#005577";
 static char *argv0;
 static const char broken[] = "broken";
 static char stext[1024];
@@ -378,7 +383,6 @@ static Display *dpy;
 static Drw *drw;
 static Monitor *mons, *selmon;
 static Window root, wmcheckwin;
-
 /* configuration, allows nested code to access above variables */
 #include "config.h"
 
@@ -1082,12 +1086,6 @@ void drawbar(Monitor *m) {
 
   /* MAP MAIN BAR */
   drw_map(drw, m->barwin, 0, 0, m->ww, bh);
-
-  /* STATUS2D EXTRA BAR (bottom) */
-  if (m == selmon) {
-    drawstatusbar(m, bh, 1, estext);
-    drw_map(drw, m->extrabarwin, 0, 0, m->ww, bh);
-  }
 }
 
 void drawbars(void) {
@@ -1486,32 +1484,28 @@ void killclient(const Arg *arg) {
   }
 }
 
-void loadxrdb(void) {
+static void loadxrdb(void) {
   Display *display;
   char *resm;
   XrmDatabase xrdb;
-  char *type;
   XrmValue value;
-
+  char *type;
   display = XOpenDisplay(NULL);
-
-  if (display != NULL) {
-    resm = XResourceManagerString(display);
-
-    if (resm != NULL) {
-      xrdb = XrmGetStringDatabase(resm);
-
-      if (xrdb != NULL) {
-        XRDB_LOAD_COLOR("dwm.normbordercolor", normbordercolor);
-        XRDB_LOAD_COLOR("dwm.normbgcolor", normbgcolor);
-        XRDB_LOAD_COLOR("dwm.normfgcolor", normfgcolor);
-        XRDB_LOAD_COLOR("dwm.selbordercolor", selbordercolor);
-        XRDB_LOAD_COLOR("dwm.selbgcolor", selbgcolor);
-        XRDB_LOAD_COLOR("dwm.selfgcolor", selfgcolor);
-      }
-    }
+  if (!display)
+    return;
+  XrmInitialize();
+  resm = XResourceManagerString(display);
+  if (!resm) {
+    XCloseDisplay(display);
+    return;
   }
-
+  xrdb = XrmGetStringDatabase(resm);
+  XRDB_LOAD_COLOR("dwm.normfgcolor", normfgcolor);
+  XRDB_LOAD_COLOR("dwm.normbgcolor", normbgcolor);
+  XRDB_LOAD_COLOR("dwm.normbordercolor", normbordercolor);
+  XRDB_LOAD_COLOR("dwm.selfgcolor", selfgcolor);
+  XRDB_LOAD_COLOR("dwm.selbgcolor", selbgcolor);
+  XRDB_LOAD_COLOR("dwm.selbordercolor", selbordercolor);
   XCloseDisplay(display);
 }
 
@@ -2316,6 +2310,7 @@ void setup(void) {
                   LeaveWindowMask | StructureNotifyMask | PropertyChangeMask;
   XChangeWindowAttributes(dpy, root, CWEventMask | CWCursor, &wa);
   XSelectInput(dpy, root, wa.event_mask);
+  xrdb(NULL);
   grabkeys();
   focus(NULL);
   spawnbar();
@@ -2595,18 +2590,6 @@ void updatebars(void) {
       XSetClassHint(dpy, m->barwin, &ch);
     }
 
-    /* EXTRA BAR (status2d) */
-    if (!m->extrabarwin) {
-      m->extrabarwin = XCreateWindow(
-          dpy, root, m->wx, m->eby, m->ww, bh, 0, DefaultDepth(dpy, screen),
-          CopyFromParent, DefaultVisual(dpy, screen),
-          CWOverrideRedirect | CWBackPixmap | CWEventMask, &wa);
-
-      XDefineCursor(dpy, m->extrabarwin, cursor[CurNormal]->cursor);
-      XMapRaised(dpy, m->extrabarwin);
-      XSetClassHint(dpy, m->extrabarwin, &ch);
-    }
-
     /* TAG PREVIEW WINDOW */
     if (!m->tagwin) {
       XSetWindowAttributes wa2 = {.override_redirect = True,
@@ -2629,21 +2612,11 @@ void updatebarpos(Monitor *m) {
   m->wh = m->mh;
 
   if (m->showbar) {
-    /* shrink window area by two bars */
-    m->wh -= bh * 2;
-
-    /* move window area down if topbar */
+    m->wh -= bh;
+    m->by = m->topbar ? m->wy : m->wy + m->wh;
     m->wy = m->topbar ? m->wy + bh : m->wy;
-
-    /* main bar position */
-    m->by = m->topbar ? m->wy - bh : m->wy + m->wh;
-
-    /* extra bar position */
-    m->eby = m->topbar ? m->wy + m->wh : m->wy - bh;
-
   } else {
     m->by = -bh;
-    m->eby = -bh;
   }
 }
 
@@ -2943,6 +2916,12 @@ void reload(const Arg *arg) { execvp(argv0, (char *const[]){argv0, NULL}); }
 
 void xrdb(const Arg *arg) {
   loadxrdb();
+  colors[SchemeNorm][ColFg] = normfgcolor;
+  colors[SchemeNorm][ColBg] = normbgcolor;
+  colors[SchemeNorm][ColBorder] = normbordercolor;
+  colors[SchemeSel][ColFg] = selfgcolor;
+  colors[SchemeSel][ColBg] = selbgcolor;
+  colors[SchemeSel][ColBorder] = selbordercolor;
   for (int i = 0; i < LENGTH(colors); i++)
     scheme[i] = drw_scm_create(drw, colors[i], 3);
   focus(NULL);

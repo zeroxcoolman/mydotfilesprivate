@@ -39,12 +39,19 @@ static const char col_gray4[] = "#eeeeee";
 static const char col_cyan[] = "#4d6a8e";
 
 /* TokyoNight colors */
-static char normbgcolor[] = "#222222";
-static char normbordercolor[] = "#444444";
-static char normfgcolor[] = "#bbbbbb";
-static char selfgcolor[] = "#eeeeee";
-static char selbordercolor[] = "#005577";
-static char selbgcolor[] = "#005577";
+// static char normbgcolor[] = "#222222";
+// static char normbordercolor[] = "#444444";
+// static char normfgcolor[] = "#bbbbbb";
+// static char selfgcolor[] = "#eeeeee";
+// static char selbordercolor[] = "#005577";
+// static char selbgcolor[] = "#005577";
+
+extern char normbgcolor[];
+extern char normbordercolor[];
+extern char normfgcolor[];
+extern char selfgcolor[];
+extern char selbordercolor[];
+extern char selbgcolor[];
 
 static char *colors[][3] = {
     [SchemeNorm] = {normfgcolor, normbgcolor, normbordercolor},
@@ -107,7 +114,7 @@ static const Layout layouts[] = {
 static char dmenumon[2] =
     "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = {"rofi", "-show", "drun", NULL};
-static const char *termcmd[] = {"st", NULL};
+static const char *termcmd[] = {"kitty", NULL};
 static const char *firefoxcmd[] = {"firefox-bin", NULL};
 static const char *slock[] = {"slock", NULL};
 static const char *screenshotcmd[] = {
