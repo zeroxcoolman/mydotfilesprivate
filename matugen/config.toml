@@ -29,11 +29,6 @@ output_path = '~/.config/nvim/colors/ex-matugen.lua'
 input_path = '~/.config/matugen/templates/hamr.json'
 output_path = '~/.config/nucleus-shell/config/colors.json'
 
-[templates.m3colors]
-input_path = '~/.config/matugen/templates/m3colors.qml'
-output_path = '~/.config/quickshell/custom/modules/common/Appearance.qml'
-post_hook = 'pkill -f "qs -c custom" && qs -c custom & disown'
-
 [templates.waybar]
 input_path = '~/.config/matugen/templates/colors.css'
 output_path = '~/.config/waybar/colors.css'
@@ -51,6 +46,17 @@ post_hook = "kill -SIGUSR1 $(pidof kitty)"
 [templates.dwl]
 input_path = '~/.config/matugen/templates/config.def.h'
 output_path = '~/.config/dwldotfiles/dwl/config.def.h'
+
+# kill (ps -C dwm -o pid=)
+# [templates.dwm]
+# input_path = '~/.config/matugen/templates/colors.h.templ'
+# output_path = '~/.config/builds/dwm/colors.h'
+# post_hook = "yes | rm ~/.config/builds/dwm/config.h"
+
+[templates.Xresources]
+input_path = '~/.config/matugen/templates/Xresources.templ'
+output_path = '~/.Xresources'
+post_hook = 'xrdb -merge ~/.Xresources'
 
 [templates.hyprland]
 input_path = '~/.config/matugen/templates/hyprland-colors.conf'

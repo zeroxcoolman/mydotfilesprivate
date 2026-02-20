@@ -178,7 +178,7 @@ static const char *termcmd[] = { "kitty", NULL };
 static const char *menucmd[] = { "rofi","-show","drun", NULL };
 static const char *screenshotcmd[] = {"screenshot","--satty", NULL };
 static const char *snip[] = {"$HOME/scripts/snip.sh", NULL };
-static const char *browser[] = {"chromium", NULL};
+static const char *browser[] = {"firefox-bin", NULL};
 static const char *wlogout[] = {"wlogout", NULL};
 static const char *bemenucmd[] = {
     "bemenu-run",
@@ -222,7 +222,6 @@ static const Key keys[] = {
 { 0,                    XKB_KEY_XF86MonBrightnessDown,           spawn,      {.v = brightdown} },
 { 0,                    XKB_KEY_XF86AudioRaiseVolume,           spawn,      {.v = volumeup} },
 { 0,                    XKB_KEY_XF86AudioLowerVolume,           spawn,      {.v = volumedown} },
- { MODKEY, 		     XKB_KEY_apostrophe, toggledimming,  {0} }, 
 	{ MODKEY,                    XKB_KEY_i,          incnmaster,     {.i = +1} },
 	{ MODKEY,                    XKB_KEY_p,          incnmaster,     {.i = -1} },
 	{ MODKEY,                    XKB_KEY_h,          setmfact,       {.f = -0.05f} },
@@ -274,7 +273,6 @@ static const Button buttons[] = {
 	{ ClkStatus,   0,      BTN_MIDDLE, spawn,          {.v = termcmd} },
 	{ ClkClient,   MODKEY, BTN_LEFT,   moveresize,     {.ui = CurMove} },
 	{ ClkClient,   MODKEY, BTN_MIDDLE, togglefloating, {0} },
-   { MODKEY|ShiftMask, BTN_MIDDLE, toggledimmingclient, {0} },
 	{ ClkClient,   MODKEY, BTN_RIGHT,  moveresize,     {.ui = CurResize} },
 	{ ClkTagBar,   0,      BTN_LEFT,   view,           {0} },
 	{ ClkTagBar,   0,      BTN_RIGHT,  toggleview,     {0} },
