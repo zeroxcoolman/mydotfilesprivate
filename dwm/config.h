@@ -207,3 +207,51 @@ static const Button buttons[] = {
     {ClkTagBar, MODKEY, Button1, tag, {0}},
     {ClkTagBar, MODKEY, Button3, toggletag, {0}},
 };
+
+/* dwmc helper functions */
+
+void setlayoutex(const Arg *arg) { setlayout(&((Arg){.v = &layouts[arg->i]})); }
+
+void viewex(const Arg *arg) { view(&((Arg){.ui = 1 << (arg->ui - 1)})); }
+
+void viewall(const Arg *arg) { view(&((Arg){.ui = ~0})); }
+
+void toggleviewex(const Arg *arg) {
+  toggleview(&((Arg){.ui = 1 << (arg->ui - 1)}));
+}
+
+void tagex(const Arg *arg) { tag(&((Arg){.ui = 1 << (arg->ui - 1)})); }
+
+void toggletagex(const Arg *arg) {
+  toggletag(&((Arg){.ui = 1 << (arg->ui - 1)}));
+}
+
+void tagall(const Arg *arg) { tag(&((Arg){.ui = ~0})); }
+
+static Signal signals[] = {
+    {"focusstack", focusstack},
+    {"setmfact", setmfact},
+    {"togglebar", togglebar},
+    {"incnmaster", incnmaster},
+    {"togglefloating", togglefloating},
+    {"focusmon", focusmon},
+    {"tagmon", tagmon},
+    {"zoom", zoom},
+
+    /* IMPORTANT FIXES */
+    {"view", viewex},
+    {"viewex", viewex},
+    {"toggleview", toggleviewex},
+    {"toggleviewex", toggleviewex},
+    {"tag", tagex},
+    {"tagex", tagex},
+    {"toggletag", toggletagex},
+    {"toggletagex", toggletagex},
+
+    {"viewall", viewall},
+    {"tagall", tagall},
+    {"killclient", killclient},
+    {"quit", quit},
+    {"setlayout", setlayout},
+    {"setlayoutex", setlayoutex},
+};
