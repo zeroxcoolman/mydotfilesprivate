@@ -51,5 +51,23 @@ in
 		rofi
 		xwallpaper
 	];
+	
+systemd.user.services.picom = {
+  Unit = {
+    Description = "Picom compositor";
+ ConditionEnvironment = "XDG_SESSION_TYPE=x11";
+    After = [ "graphical-session.target" ];
+  };
+
+  Service = {
+    ExecStart = "${pkgs.picom}/bin/picom --config ${config.home.homeDirectory}/.config/picom/picom.conf";
+    Restart = "on-failure";
+  };
+
+  Install = {
+    WantedBy = [ "default.target" ];
+  };
+};
+
 
 }
