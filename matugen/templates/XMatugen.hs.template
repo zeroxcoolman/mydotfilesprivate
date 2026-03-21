@@ -1,0 +1,77 @@
+module XMonad.Matugen where
+
+primary :: String
+primary = "{{colors.primary.default.hex}}"
+
+onPrimary :: String
+onPrimary = "{{colors.on_primary.default.hex}}"
+
+primaryContainer :: String
+primaryContainer = "{{colors.primary_container.default.hex}}"
+
+onPrimaryContainer :: String
+onPrimaryContainer = "{{colors.on_primary_container.default.hex}}"
+
+inversePrimary :: String
+inversePrimary = "{{colors.inverse_primary.default.hex}}"
+
+secondary :: String
+secondary = "{{colors.secondary.default.hex}}"
+
+onSecondary :: String
+onSecondary = "{{colors.on_secondary.default.hex}}"
+
+secondaryContainer :: String
+secondaryContainer = "{{colors.secondary_container.default.hex}}"
+
+onSecondaryContainer :: String
+onSecondaryContainer = "{{colors.on_secondary_container.default.hex}}"
+
+tertiary :: String
+tertiary = "{{colors.tertiary.default.hex}}"
+
+onTertiary :: String
+onTertiary = "{{colors.on_tertiary.default.hex}}"
+
+tertiaryContainer :: String
+tertiaryContainer = "{{colors.tertiary_container.default.hex}}"
+
+onTertiaryContainer :: String
+onTertiaryContainer = "{{colors.on_tertiary_container.default.hex}}"
+
+errorColor :: String
+errorColor = "{{colors.error.default.hex}}"
+
+onError :: String
+onError = "{{colors.on_error.default.hex}}"
+
+surface :: String
+surface = "{{colors.surface.default.hex}}"
+
+onSurface :: String
+onSurface = "{{colors.on_surface.default.hex}}"
+
+surfaceVariant :: String
+surfaceVariant = "{{colors.surface_variant.default.hex}}"
+
+onSurfaceVariant :: String
+onSurfaceVariant = "{{colors.on_surface_variant.default.hex}}"
+
+outline :: String
+outline = "{{colors.outline.default.hex}}"
+
+outlineVariant :: String
+outlineVariant = "{{colors.outline_variant.default.hex}}"
+
+background :: String
+background = "{{colors.background.default.hex}}"
+
+onBackground :: String
+onBackground = "{{colors.on_background.default.hex}}"
+
+shadow :: String
+shadow = "{{colors.shadow.default.hex}}"
+
+scrim :: String
+scrim = "{{colors.scrim.default.hex}}"
+
