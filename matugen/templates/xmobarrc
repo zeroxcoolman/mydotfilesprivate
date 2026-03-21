@@ -1,0 +1,50 @@
+Config {
+  font            = "JetBrainsMono Nerd Font Mono 13"
+, additionalFonts = [ "JetBrainsMono Nerd Font Mono 14" ]
+, bgColor         = "{{colors.background.default.hex}}"
+, fgColor         = "{{colors.on_background.default.hex}}"
+, position        = TopSize C 100 25
+, borderWidth     = 2
+
+, sepChar         = "%"
+, alignSep        = "}{"
+
+, template        = " %XMonadLog% }{ %cpu% <fc={{colors.outline.default.hex}}>│</fc> %memory% <fc={{colors.outline.default.hex}}>│</fc> %battery% <fc={{colors.outline.default.hex}}>│</fc> %date% "
+
+, commands =
+    [ Run XMonadLog
+
+    , Run Cpu
+        [ "-t", "<fc={{colors.primary.default.hex}}>CPU:</fc> <total>%"
+        , "-L", "30"
+        , "-H", "70"
+        , "-l", "{{colors.secondary.default.hex}}"
+        , "-n", "{{colors.tertiary.default.hex}}"
+        , "-h", "{{colors.error.default.hex}}"
+        ] 10
+
+    , Run Memory
+        [ "-t", "<fc={{colors.primary.default.hex}}>MEM:</fc> <usedratio>%"
+        , "-L", "30"
+        , "-H", "70"
+        , "-l", "{{colors.secondary.default.hex}}"
+        , "-n", "{{colors.tertiary.default.hex}}"
+        , "-h", "{{colors.error.default.hex}}"
+        ] 10
+
+    , Run Battery
+        [ "-t", "<fc={{colors.primary.default.hex}}>BAT:</fc> <acstatus>"
+        , "-L", "20"
+        , "-H", "80"
+        , "-l", "{{colors.error.default.hex}}"
+        , "-n", "{{colors.tertiary.default.hex}}"
+        , "-h", "{{colors.secondary.default.hex}}"
+        , "--"
+        , "-o", "<left>% (<timeleft>)"
+        , "-O", "<fc={{colors.tertiary.default.hex}}>Charging</fc> <left>%"
+        , "-i", "<fc={{colors.secondary.default.hex}}>Charged</fc>"
+        ] 50
+
+    , Run Date "<fc={{colors.tertiary.default.hex}}> %a %b %_d %H:%M</fc>" "date" 10
+    ]
+}
