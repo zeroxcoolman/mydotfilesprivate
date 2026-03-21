@@ -17,6 +17,16 @@ post_hook = 'xwallpaper --zoom ~/.config/hypr/current_wallpaper'
 input_path = '~/.config/matugen/templates/oxwm-colors.lua'
 output_path = '~/.config/oxwm/matugen.lua'
 
+[templates.xmonad]
+output_path = '~/.config/xmonad/lib/XMonad/Matugen.hs'
+input_path = '~/.config/matugen/templates/XMatugen.hs.template'
+post_hook = 'xmonad --recompile && xmonad --restart'
+
+[templates.xmobar]
+output_path = '~/.config/xmobar/xmobarrc'
+input_path = '~/.config/matugen/templates/xmobarrc'
+post_hook = 'xmonad --restart'
+
 [templates.hamr]
 input_path = '~/.config/matugen/templates/hamr.json'
 output_path = '~/.config/quickshell/hamr/defaults/colors.json'
